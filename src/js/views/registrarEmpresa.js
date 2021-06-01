@@ -243,9 +243,9 @@ export const RegistrarEmpresa = () => {
 					</div>
 				</div>
 				<div className="form-group row">
-					<div className="col" />
-					<div className="col-1">
-						<button type="submit" className="btn btn-primary">
+					<div className="col-sm" />
+					<div className="col-sm-2">
+						<button type="submit" className="form-control btn btn-primary">
 							Registrarse
 						</button>
 					</div>
