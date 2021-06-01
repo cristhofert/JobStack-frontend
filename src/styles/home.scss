@@ -1,3 +1,40 @@
 .nav-footer-color {
     background-color: #023E8A;
 }
+
+h1{
+    color: #023E8A;
+    font-size: 50px;
+}
+
+.inputRegistro{
+    border: none;
+    background-color: #E6E6E6;
+}
+
+label{
+    color: #006CAE;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.botonRegistro{
+    background-color: #0096C7;
+    border-color: #0096C7;
+    color: white;
+}
+
+.botonRegistro:hover{
+    background-color: #0077B6;
+    color: white;
+}
+
+.div-derecha{
+  border-left: none;
+}
+
+@media screen and (min-width: 768px) {
+  .div-derecha {
+    border-left: 2px solid gray;
+  }
+}
