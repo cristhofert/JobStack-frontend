@@ -9,7 +9,11 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+<<<<<<< HEAD
 import { RegistrarEmpresa } from "./views/registrarEmpresa";
+=======
+import { RegistroProfesional } from "./views/registroProfesional";
+>>>>>>> origin/develop
 
 //create your first component
 const Layout = () => {
@@ -28,6 +32,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/registrarEmpresa">
 							<RegistrarEmpresa />
+                            </Route>
+						<Route exact path="/registroEmpresa">
+							<RegistroProfesional />
 						</Route>
 						<Route exact path="/demo">
 							<Demo />
