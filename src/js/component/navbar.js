@@ -24,25 +24,20 @@ export const Navbar = () => {
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
-						<li className="nav-item active">
-							<a className="nav-link text-light" href="#">
-								Calificar
-							</a>
+						<li className="nav-item">
+							<a className="nav-link text-light disabled">Calificar</a>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link text-light" href="#">
-								Nosotros
-							</a>
+							<a className="nav-link text-light disabled">Nosotros</a>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link text-light" href="#">
-								Iniciar Sesión
-							</a>
+							<Link to="/login">
+								<a className="navbarLink nav-link text-light">Iniciar Sesión</a>
+							</Link>
 						</li>
 						<li className="nav-item dropdown">
 							<a
-								className="nav-link dropdown-toggle text-light"
-								href="#"
+								className="navbarLink nav-link dropdown-toggle text-light"
 								id="navbarDropdown"
 								role="button"
 								data-toggle="dropdown"
@@ -51,13 +46,14 @@ export const Navbar = () => {
 								Registrarse
 							</a>
 							<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a className="dropdown-item" href="#">
-									Profesional
-								</a>
+								<Link to="/registro-profesional">
+									<a className="navbarLink text-dark dropdown-item">Profesional</a>
+								</Link>
+
 								<div className="dropdown-divider" />
-								<a className="dropdown-item" href="#">
-									Empresa
-								</a>
+								<Link to="/registro-empresa">
+									<a className="navbarLink text-dark dropdown-item">Empresa</a>
+								</Link>
 							</div>
 						</li>
 					</ul>
