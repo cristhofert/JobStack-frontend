@@ -1,24 +1,70 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import "../../styles/home.scss";
 
+import { Context } from "../store/appContext";
+
 export const Login = () => {
+	let history = useHistory();
+	const { store, actions } = useContext(Context);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState(false);
+	const login = async () => {
+		const res = await actions.login(email, password);
+		setEmail("");
+		setPassword("");
+		if (res) {
+			history.push("/");
+		} else {
+			setError(true);
+		}
+	};
 	return (
 		<div className="container my-auto">
 			<div className="row">
 				<div className="col-sm-12 col-md-6">
 					<h1 id="title">Ingresar</h1>
-					<form id="form">
+					{error ? (
+						<div className="alert alert-danger" role="alert">
+							Email o contraseña incorrectos!
+						</div>
+					) : (
+						""
+					)}
+					<form
+						id="form"
+						onSubmit={e => {
+							e.preventDefault();
+							login();
+						}}>
 						<div className="mb-3">
 							<label htmlFor="loginEmail" className="form-label">
 								Email
 							</label>
-							<input type="email" className="form-control" id="loginEmail" />
+							<input
+								type="email"
+								onChange={e => {
+									setEmail(e.target.value);
+								}}
+								value={email}
+								className="form-control"
+								id="loginEmail"
+							/>
 						</div>
 						<div className="mb-3">
 							<label htmlFor="loginContraseña" className="form-label">
 								Contraseña
 							</label>
-							<input type="password" className="form-control" id="loginContraseña" />
+							<input
+								type="password"
+								onChange={e => {
+									setPassword(e.target.value);
+								}}
+								value={password}
+								className="form-control"
+								id="loginContraseña"
+							/>
 						</div>
 						<div className="mb-3">
 							<a href="#" className="link">
