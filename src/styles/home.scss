@@ -6,6 +6,13 @@ h1{
     color: #023E8A;
     font-size: 50px;
 }
+h2{
+    color:#023E8A;
+}
+
+p{
+    font-size: 18px;
+}
 
 .inputRegistro{
     border: none;
@@ -18,13 +25,13 @@ label{
     font-weight: bold;
 }
 
-.botonRegistro{
+.boton{
     background-color: #0096C7;
     border-color: #0096C7;
     color: white;
 }
 
-.botonRegistro:hover{
+.boton:hover{
     background-color: #0077B6;
     color: white;
 }
@@ -37,4 +44,67 @@ label{
   .div-derecha {
     border-left: 2px solid gray;
   }
+}
+
+.perfilProfesionalFondo{
+    width: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.FotoPerfilProfesional{
+    position: relative;
+    bottom: 50px;
+    border: 5px solid #023E8A;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background-color: blue;
+}
+
+.perfil{
+    margin-top: 200px;
+    background-color: white;
+    border-radius: 16px;
+}
+
+.fotoProyecto{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: blue;
+    border: 3px solid #023E8A;
+}
+
+.listaProyectos{
+    height: 300px;
+    overflow-y: scroll;
+    padding: 0px 10px 0px 10px;
+}
+
+//SCROLLBAR
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #E6E6E6;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0077B6;
+    border-radius: 5px;
+}
+
+.botonEliminarDatos{
+    color: #FF3614;
+    cursor: pointer;
+}
+
+.detalles{
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
