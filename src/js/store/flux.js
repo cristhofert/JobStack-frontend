@@ -12,6 +12,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
+			login: async (email, password) => {
+				let url = `https://3001-azure-catfish-1gg3x9hu.ws-us08.gitpod.io/login`;
+				let options = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: `{"email":"${email}","contrasenna":"${password}"}`
+				};
+
+				let user;
+				let result;
+				await fetch(url, options)
+					.then(res => {
+						result = res.ok;
+						return res.json();
+					})
+					.then(data => (user = data))
+					.catch(err => console.error("error:" + err));
+				sessionStorage.setItem("token", user.token);
+				return result;
+			},
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
 				const detalleNuevo = [...store[tipo]];
