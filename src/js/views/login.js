@@ -1,35 +1,80 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import "../../styles/home.scss";
 
+import { Context } from "../store/appContext";
+
 export const Login = () => {
+	let history = useHistory();
+	const { store, actions } = useContext(Context);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState(false);
+	const login = async () => {
+		const res = await actions.login(email, password);
+		setEmail("");
+		setPassword("");
+		if (res) {
+			history.push("/");
+		} else {
+			setError(true);
+		}
+	};
 	return (
 		<div className="container my-auto">
 			<div className="row">
 				<div className="col-sm-12 col-md-6">
 					<h1 id="title">Ingresar</h1>
-					<form id="form">
+					{error ? (
+						<div className="alert alert-danger" role="alert">
+							Email o contraseña incorrectos!
+						</div>
+					) : (
+						""
+					)}
+					<form
+						id="form"
+						onSubmit={e => {
+							e.preventDefault();
+							login();
+						}}>
 						<div className="mb-3">
-							<label htmlFor="exampleInputEmail1" className="form-label">
+							<label htmlFor="loginEmail" className="form-label">
 								Email
 							</label>
-							<input type="email" className="form-control" aria-describedby="emailHelp" />
-							<div id="emailHelp" className="form-text" />
+							<input
+								type="email"
+								onChange={e => {
+									setEmail(e.target.value);
+								}}
+								value={email}
+								className="form-control"
+								id="loginEmail"
+							/>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="exampleInputPassword1" className="form-label">
+							<label htmlFor="loginContraseña" className="form-label">
 								Contraseña
 							</label>
-							<input type="password" className="form-control" id="InputPassword" />
+							<input
+								type="password"
+								onChange={e => {
+									setPassword(e.target.value);
+								}}
+								value={password}
+								className="form-control"
+								id="loginContraseña"
+							/>
 						</div>
 						<div className="mb-3">
 							<a href="#" className="link">
 								¿Olvidaste tu contraseña?
 							</a>
 						</div>
-						<button type="submit" className="btn btn-primary">
+						<button type="submit" className="boton btn">
 							Ingresar
 						</button>
-						<button type="submit" className="btn btn-primary active ml-3">
+						<button type="submit" className="botonCrearCuenta btn ml-3">
 							Crear una cuenta nueva
 						</button>
 					</form>
