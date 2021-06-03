@@ -25,7 +25,7 @@ export const RegistroProfesional = () => {
 							<input type="password" className="inputRegistro form-control" id="confirmPassword" />
 						</div>
 						<div className="d-flex justify-content-center">
-							<button type="submit" className="botonRegistro btn">
+							<button type="submit" className="boton btn">
 								Crear cuenta
 							</button>
 						</div>
