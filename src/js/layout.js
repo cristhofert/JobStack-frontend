@@ -33,9 +33,13 @@ const Layout = () => {
 						<Route exact path="/login">
 							<Login />
 						</Route>
+<<<<<<< HEAD
 						<Route exact path="/empresa">
 							<Empresa />
 						</Route>
+=======
+
+>>>>>>> bd58da33f5ff71e944202fca31b62f0610a48c64
 						<Route exact path="/registrarEmpresa">
 							<RegistrarEmpresa />
 						</Route>
