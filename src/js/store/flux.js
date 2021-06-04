@@ -4,7 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			educacion: [],
 			experiencia: [],
 			certificaciones: [],
-			idiomas: []
+			idiomas: [],
+			empresa: {},
+			user: ""
 		},
 		actions: {
 			loadSomeData: () => {
@@ -30,6 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => (user = data))
 					.catch(err => console.error("error:" + err));
 				sessionStorage.setItem("token", user.token);
+				setStore({ email: user.user.email });
 				return result;
 			},
 			borrarDetalle: (id, tipo) => {
@@ -59,10 +62,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				fetch(`${process.env.API_REST}/empresa`, requestOptions)
-					.then(response => response.text())
+					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
-			}
+			} /* ,
+            obtenerMiEmpresa: () => {getActions.obtenerEmpresa(getStore().email)},
+            obtenerEmpresa: email => {
+                var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+                };
+
+                fetch(`${process.env.API_REST}/empresa/${email}` , requestOptions)
+                .then(response => response.json())
+                .then(result => setStore({ empresa: result}))
+                .catch(error => console.log('error', error)); 
+            }*/
 		}
 	};
 };
