@@ -31,8 +31,8 @@ export const Navbar = () => {
 							<a className="nav-link text-light disabled">Nosotros</a>
 						</li>
 						<li className="nav-item">
-							<Link to="/login">
-								<a className="navbarLink nav-link text-light">Iniciar Sesión</a>
+							<Link className="navbarLink nav-link text-light" to="/login">
+								Iniciar Sesión
 							</Link>
 						</li>
 						<li className="nav-item dropdown">
@@ -46,13 +46,12 @@ export const Navbar = () => {
 								Registrarse
 							</a>
 							<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-								<Link to="/registro-profesional">
-									<a className="navbarLink text-dark dropdown-item">Profesional</a>
+								<Link className="navbarLink text-dark dropdown-item" to="/registro-profesional">
+									Profesional
 								</Link>
-
 								<div className="dropdown-divider" />
-								<Link to="/registro-empresa">
-									<a className="navbarLink text-dark dropdown-item">Empresa</a>
+								<Link className="navbarLink text-dark dropdown-item" to="/registro-empresa">
+									Empresa
 								</Link>
 							</div>
 						</li>
