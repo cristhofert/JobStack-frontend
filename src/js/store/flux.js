@@ -42,9 +42,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ [tipo]: detalleNuevo });
 			},
 			agregarDetalle: (descripcion, tipo) => {
-				const store = getStore();
-				const nuevoArrayDetalles = [...store[tipo], descripcion];
-				setStore({ [tipo]: nuevoArrayDetalles });
+				if (descripcion.length > 0) {
+					const store = getStore();
+					const nuevoArrayDetalles = [...store[tipo], descripcion];
+					setStore({ [tipo]: nuevoArrayDetalles });
+				}
 			},
 			registrarEmpresa: datosDeEmpresa => {
 				var myHeaders = new Headers();

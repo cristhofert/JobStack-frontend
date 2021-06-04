@@ -41,11 +41,15 @@ export const PerfilProfesional = () => {
 
 				<div className="row">
 					<div className="col px-5 mb-4">
-						{descripcionPerfil.length != 0 ? <h2>Descripcion</h2> : ""}
+						{descripcionPerfil.trim() != "" ? <h2>Descripcion</h2> : ""}
 						{editar ? (
 							<form>
 								<textarea
-									onChange={e => setDescripcionPerfil(e.target.value)}
+									onChange={e =>
+										e.target.value.trim() != ""
+											? setDescripcionPerfil(e.target.value)
+											: setDescripcionPerfil("")
+									}
 									value={descripcionPerfil}
 									className="form-control"
 									id="descripcionPerfil"
