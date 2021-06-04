@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Imagen from "../../img/ImagenPerfilProfesional.jpg";
 
 import { ProyectoProfesional } from "../component/proyectoProfesional";
@@ -6,7 +6,7 @@ import { InfoProfesional } from "../component/infoProfesional";
 import { Ofertas } from "../component/ofertas";
 import { Context } from "../store/appContext";
 
-export const Empresa = () => {
+export const EditarEmpresa = () => {
 	const { store, actions } = useContext(Context);
 	const [editar, setEditar] = useState(false);
 	const [descripcion, setDescripcion] = useState("");
@@ -18,7 +18,29 @@ export const Empresa = () => {
 	const [linkedin, setLinkedin] = useState("");
 	const [twitter, setTwitter] = useState("");
 	const [facebook, setFacebook] = useState("");
+	const [id, setId] = useState(0);
 	const [nombre, setNombre] = useState("Nombre Empresa");
+
+	/*     useEffect(() => {
+        actions.obtenerMiEmpresa()
+        setDescripcion(store.empresa.descripcion)
+        setComentarios(store.empresa.comentarios)
+        setSitioweb(store.empresa.sitioweb)
+        setDepartamento(store.empresa.descripcion)
+        setDireccion(store.empresa.direccion)
+        setGithub(store.empresa.github)
+        setLinkedin(Store.empresa.linkedin)
+        setTwitter(store.empresa.twitter)
+        setFacebook(store.empresa.facebook)
+        setNombre(store.empresa.nombre)
+        setId(store.empresa.id)
+    }, []);
+
+    useEffect(() => {
+        actions.editarEmprea({
+            id , descripcion,comentarios,sitioweb,departamento,direccion,github,linkedin,twitter,facebook, nombre
+        })
+    }, [editar]) */
 
 	const editarPerfil = () => {
 		setEditar(!editar);
@@ -31,7 +53,20 @@ export const Empresa = () => {
 						<div className="FotoPerfilProfesional" />
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
-						<h1 className="mb-4 align-self-center">{nombre}</h1>
+						{editar ? (
+							<div className="col-sm">
+								<input
+									id="nombre"
+									className="form-control"
+									placeholder="Nombre"
+									onChange={e => setNombre(e.target.value)}
+									value={nombre}
+									required
+								/>
+							</div>
+						) : (
+							<h1 className="mb-4 align-self-center">{nombre}</h1>
+						)}
 					</div>
 					<div className="col-sm-12 col-md-3 d-flex justify-content-center">
 						<button onClick={editarPerfil} className="mb-4 mr-2 btn btn-primary align-self-center boton">

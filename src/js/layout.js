@@ -13,7 +13,7 @@ import { Footer } from "./component/footer";
 import { RegistrarEmpresa } from "./views/registrarEmpresa";
 import { RegistroProfesional } from "./views/registroProfesional";
 import { PerfilProfesional } from "./views/perfilProfesional";
-import { Empresa } from "./views/empresa";
+import { EditarEmpresa } from "./views/editarEmpresa";
 
 //create your first component
 const Layout = () => {
@@ -34,7 +34,7 @@ const Layout = () => {
 							<Login />
 						</Route>
 						<Route exact path="/empresa">
-							<Empresa />
+							<EditarEmpresa />
 						</Route>
 
 						<Route exact path="/registrarEmpresa">
