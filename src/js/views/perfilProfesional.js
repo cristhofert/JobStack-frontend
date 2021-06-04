@@ -3,16 +3,13 @@ import Imagen from "../../img/ImagenPerfilProfesional.jpg";
 
 import { ProyectoProfesional } from "../component/proyectoProfesional";
 import { InfoProfesional } from "../component/infoProfesional";
+import { AgregarDetallesProf } from "../component/agregarDetallesProf";
 import { Context } from "../store/appContext";
 
 export const PerfilProfesional = () => {
 	const { store, actions } = useContext(Context);
 	const [editar, setEditar] = useState(false);
 	const [descripcionPerfil, setDescripcionPerfil] = useState("");
-	const [agregarEducacion, setAgregarEducacion] = useState("");
-	const [agregarExperiencia, setAgregarExperiencia] = useState("");
-	const [agregarCertificacion, setAgregarCertificacion] = useState("");
-	const [agregarIdioma, setAgregarIdioma] = useState("");
 
 	const editarPerfil = () => {
 		setEditar(!editar);
@@ -91,38 +88,7 @@ export const PerfilProfesional = () => {
 								})}
 							</div>
 
-							{editar ? (
-								<div className="mx-3">
-									<form
-										onSubmit={e => {
-											e.preventDefault();
-											setAgregarEducacion("");
-											actions.agregarDetalle(agregarEducacion, "educacion");
-										}}
-										className="form">
-										<div className="row">
-											<div className="col-sm-12 col-md-9 px-1">
-												<input
-													type="text"
-													className="form-control"
-													onChange={e => {
-														setAgregarEducacion(e.target.value);
-													}}
-													value={agregarEducacion}
-													placeholder="Agregar educacion"
-												/>
-											</div>
-											<div className="col-sm-12 col-md-3 px-1">
-												<button type="submit" className="boton btn btn-primary">
-													Agregar
-												</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							) : (
-								""
-							)}
+							{editar ? <AgregarDetallesProf tipo={"educacion"} /> : ""}
 						</div>
 						<div className="col my-2">
 							{store.experiencia.length != 0 ? <h2>Experiencia</h2> : ""}
@@ -140,38 +106,7 @@ export const PerfilProfesional = () => {
 								})}
 							</div>
 
-							{editar ? (
-								<div className="mx-3">
-									<form
-										onSubmit={e => {
-											e.preventDefault();
-											setAgregarExperiencia("");
-											actions.agregarDetalle(agregarExperiencia, "experiencia");
-										}}
-										className="form">
-										<div className="row">
-											<div className="col-sm-12 col-md-9 px-1">
-												<input
-													type="text"
-													className="form-control"
-													onChange={e => {
-														setAgregarExperiencia(e.target.value);
-													}}
-													value={agregarExperiencia}
-													placeholder="Agregar experiencia"
-												/>
-											</div>
-											<div className="col-sm-12 col-md-3 px-1">
-												<button type="submit" className="boton btn btn-primary">
-													Agregar
-												</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							) : (
-								""
-							)}
+							{editar ? <AgregarDetallesProf tipo={"experiencia"} /> : ""}
 						</div>
 					</div>
 					<div
@@ -199,38 +134,7 @@ export const PerfilProfesional = () => {
 								})}
 							</div>
 
-							{editar ? (
-								<div className="mx-3">
-									<form
-										onSubmit={e => {
-											e.preventDefault();
-											setAgregarCertificacion("");
-											actions.agregarDetalle(agregarCertificacion, "certificaciones");
-										}}
-										className="form">
-										<div className="row">
-											<div className="col-sm-12 col-md-9 px-1">
-												<input
-													type="text"
-													className="form-control"
-													onChange={e => {
-														setAgregarCertificacion(e.target.value);
-													}}
-													value={agregarCertificacion}
-													placeholder="Agregar certificaciones"
-												/>
-											</div>
-											<div className="col-sm-12 col-md-3 px-1">
-												<button type="submit" className="boton btn btn-primary">
-													Agregar
-												</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							) : (
-								""
-							)}
+							{editar ? <AgregarDetallesProf tipo={"certificaciones"} /> : ""}
 						</div>
 						<div className="col my-2">
 							{store.idiomas.length != 0 ? <h2>Idiomas</h2> : ""}
@@ -248,38 +152,7 @@ export const PerfilProfesional = () => {
 								})}
 							</div>
 
-							{editar ? (
-								<div className="mx-3">
-									<form
-										onSubmit={e => {
-											e.preventDefault();
-											setAgregarIdioma("");
-											actions.agregarDetalle(agregarIdioma, "idiomas");
-										}}
-										className="form">
-										<div className="row">
-											<div className="col-sm-12 col-md-9 px-1">
-												<input
-													type="text"
-													className="form-control"
-													onChange={e => {
-														setAgregarIdioma(e.target.value);
-													}}
-													value={agregarIdioma}
-													placeholder="Agregar idiomas"
-												/>
-											</div>
-											<div className="col-sm-12 col-md-3 px-1">
-												<button type="submit" className="boton btn btn-primary">
-													Agregar
-												</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							) : (
-								""
-							)}
+							{editar ? <AgregarDetallesProf tipo={"idiomas"} /> : ""}
 						</div>
 					</div>
 				</div>
