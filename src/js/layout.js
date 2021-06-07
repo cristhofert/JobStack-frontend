@@ -7,6 +7,7 @@ import { Login } from "./views/login";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
+import { CambiarContraseña } from "./views/cambiarContrasenna";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -34,6 +35,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/cambiarcontrasenna">
+							<CambiarContraseña />
 						</Route>
 						<Route exact path="/empresa/:id">
 							<Empresa />

@@ -9,35 +9,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 			habilidades: [],
 			condiciones: [],
 			responsabilidades: [],
-			empresa: undefined,
+			empresa: {
+				descripcion: "",
+				comentarios: "",
+				sitioweb: "",
+				departamento: "",
+				direccion: "",
+				direccion: "",
+				github: "",
+				linkedin: "",
+				twitter: "",
+				facebook: "",
+				id: 0,
+				nombre: ""
+			},
 			user: ""
 		},
 		actions: {
+			setEmpresa: empresa => {
+				const store = getStore();
+				setStore({ empresa: { ...store.empresa, ...empresa } });
+			},
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
 			login: async (email, password) => {
-				let url = `https://3001-azure-catfish-1gg3x9hu.ws-us08.gitpod.io/login`;
+				let url = `${process.env.API_REST}/login`;
 				let options = {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: `{"email":"${email}","contrasenna":"${password}"}`
 				};
+				const res = await fetch(url, options);
+				if (!res.ok) {
+					const message = `An error has occured: ${res.status}`;
+					console.log(message);
+				} else {
+					const data = await res.json();
+					sessionStorage.setItem("token", data.token);
+					setStore({ email: data.user.email });
+				}
 
-				let user;
-				let result;
-				await fetch(url, options)
-					.then(res => {
-						result = res.ok;
-						return res.json();
-					})
-					.then(data => (user = data))
-					.catch(err => console.error("error:" + err));
-				sessionStorage.setItem("token", user.token);
-				setStore({ email: user.user.email });
-				return result;
+				return res.ok;
 			},
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
@@ -107,7 +122,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				const res = await fetch(url, options);
-				return res.ok;
+                return res.ok;
+            },
+			cambiarContrasenna: (contraseñaNueva, contraseñaVieja) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					contrasennaVieja: contraseñaVieja,
+					contrasennaNueva: contraseñaNueva
+				});
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/cambiarcontrasenna`, requestOptions)
+					.then(response => response.json())
+					.then(result => console.log(result))
+					.catch(error => console.log("error", error));
+			},
+
+			obtenerMiEmpresa: () => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var requestOptions = {
+					method: "GET",
+					headers: myHeaders,
+
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/empresa/`, requestOptions)
+					.then(response => response.json())
+					.then(result => setStore({ empresa: result }))
+					.catch(error => console.log("error", error));
+			},
+			editarEmpresa: () => {
+				const store = getStore();
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var raw = JSON.stringify(store.empresa);
+
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				fetch(`${API_REST}/empresa`, requestOptions)
+					.then(response => response.json())
+					.then(result => console.log(result))
+					.catch(error => console.log("error", error));
 			}
 		}
 	};
