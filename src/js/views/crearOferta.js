@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { InfoProfesional } from "../component/infoProfesional";
 import { AgregarDetallesProf } from "../component/agregarDetallesProf";
 import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 
 export const CrearOferta = () => {
 	const { store, actions } = useContext(Context);
+	let history = useHistory();
+	const [nombre, setNombre] = useState("");
+	const [descripcion, setDescripcion] = useState("");
+	const [fecha, setFecha] = useState("");
+	const [politicaTeletrabajo, setPoliticaTeletrabajo] = useState("");
+	const crearOferta = async () => {
+		const res = await actions.crearOferta(nombre, fecha, descripcion, politicaTeletrabajo);
+		if (res) {
+			history.push("/");
+		}
+	};
 	return (
 		<div className="container">
 			<div className="row align-items-center my-4">
@@ -13,10 +25,16 @@ export const CrearOferta = () => {
 					<h1>Nombre:</h1>
 				</div>
 				<div className="col-sm-12 col-md-6 my-2">
-					<input type="text" className="form-control m-2" id="nombreOferta" />
+					<input
+						type="text"
+						onChange={e => (e.target.value.trim() != "" ? setNombre(e.target.value) : setNombre(""))}
+						value={nombre}
+						className="form-control m-2"
+						id="nombreOferta"
+					/>
 				</div>
 				<div className="col-sm-12 col-md-3 my-2 text-center">
-					<button type="submit" className="boton btn">
+					<button onClick={crearOferta} type="submit" className="boton btn">
 						Guardar y crear Oferta
 					</button>
 				</div>
@@ -26,12 +44,26 @@ export const CrearOferta = () => {
 				<div className="col-12">
 					<div className="form-group mx-4">
 						<label htmlFor="descripcionCrearOferta">Descripcion de la oferta:</label>
-						<textarea className="form-control" id="descripcionCrearOferta" rows="6" />
+						<textarea
+							onChange={e =>
+								e.target.value.trim() != "" ? setDescripcion(e.target.value) : setDescripcion("")
+							}
+							className="form-control"
+							id="descripcionCrearOferta"
+							value={descripcion}
+							rows="6"
+						/>
 					</div>
 				</div>
 				<div className="col-sm-12 col-md-3">
 					<div className="form-group mx-4">
-						<input type="date" className="form-control" id="fechaOferta" />
+						<input
+							onChange={e => setFecha(e.target.value)}
+							type="date"
+							className="form-control"
+							id="fechaOferta"
+							value={fecha}
+						/>
 					</div>
 				</div>
 			</div>
@@ -112,7 +144,17 @@ export const CrearOferta = () => {
 
 				<div className="col-12 px-4 my-2">
 					<h2>Politica de trabajo remoto</h2>
-					<input type="text" className="form-control m-2" id="politicaTrabajoRemoto" />
+					<input
+						type="text"
+						onChange={e => {
+							e.target.value.trim() != ""
+								? setPoliticaTeletrabajo(e.target.value)
+								: setPoliticaTeletrabajo("");
+						}}
+						value={politicaTeletrabajo}
+						className="form-control m-2"
+						id="politicaTrabajoRemoto"
+					/>
 				</div>
 			</div>
 		</div>

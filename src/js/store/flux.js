@@ -80,6 +80,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
+			},
+			crearOferta: async (nombre, fecha, descripcion, politicaTeletrabajo) => {
+				const store = getStore();
+				let url = `${process.env.API_REST}/oferta`;
+
+				let bodyObjeto = {
+					nombre: nombre,
+					fecha: fecha,
+					descripcion: descripcion,
+					politica_teletrabajo: politicaTeletrabajo,
+					cualificaciones: store.cualificaciones,
+					condiciones: store.condiciones,
+					habilidades: store.habilidades,
+					responsabilidades: store.responsabilidades
+				};
+
+				let bodyJSON = JSON.stringify(bodyObjeto);
+				let options = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					},
+					body: bodyJSON
+				};
+
+				const res = await fetch(url, options);
+				return res.ok;
 			}
 		}
 	};
