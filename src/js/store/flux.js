@@ -15,24 +15,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				*/
 			},
 			login: async (email, password) => {
-				let url = `https://3001-azure-catfish-1gg3x9hu.ws-us08.gitpod.io/login`;
+				let url = `${process.env.API_REST}/login`;
 				let options = {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: `{"email":"${email}","contrasenna":"${password}"}`
 				};
 
-				let user;
 				let result;
-				await fetch(url, options)
+				fetch(url, options)
 					.then(res => {
 						result = res.ok;
 						return res.json();
 					})
-					.then(data => (user = data))
+
+					.then(data => {
+						sessionStorage.setItem("token", data.token);
+						setStore({ email: data.user.email });
+					})
 					.catch(err => console.error("error:" + err));
-				sessionStorage.setItem("token", user.token);
-				setStore({ email: user.user.email });
 				return result;
 			},
 			borrarDetalle: (id, tipo) => {
@@ -75,6 +76,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`${process.env.API_REST}/empresa/${id}`, requestOptions)
 					.then(response => response.json())
 					.then(result => setStore({ empresa: result }))
+					.catch(error => console.log("error", error));
+			},
+			cambiarContrasenna: (contraseñaNueva, contraseñaVieja) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					contrasennaVieja: contraseñaVieja,
+					contrasennaNueva: contraseñaNueva
+				});
+
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/cambiarcontrasenna`, requestOptions)
+					.then(response => response.json())
+					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
 			}
 		}
