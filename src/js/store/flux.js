@@ -5,6 +5,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			experiencia: [],
 			certificaciones: [],
 			idiomas: [],
+			cualificaciones: [],
+			habilidades: [],
+			condiciones: [],
+			responsabilidades: [],
 			empresa: {
 				descripcion: "",
 				comentarios: "",
@@ -39,20 +43,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: `{"email":"${email}","contrasenna":"${password}"}`
 				};
+				const res = await fetch(url, options);
+				if (!res.ok) {
+					const message = `An error has occured: ${res.status}`;
+					console.log(message);
+				} else {
+					const data = await res.json();
+					sessionStorage.setItem("token", data.token);
+					setStore({ email: data.user.email });
+				}
 
-				let result;
-				fetch(url, options)
-					.then(res => {
-						result = res.ok;
-						return res.json();
-					})
-
-					.then(data => {
-						sessionStorage.setItem("token", data.token);
-						setStore({ email: data.user.email });
-					})
-					.catch(err => console.error("error:" + err));
-				return result;
+				return res.ok;
 			},
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
@@ -61,7 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ [tipo]: detalleNuevo });
 			},
 			agregarDetalle: (descripcion, tipo) => {
-				if (descripcion.length > 0) {
+				if (descripcion.nombre.length > 0) {
 					const store = getStore();
 					const nuevoArrayDetalles = [...store[tipo], descripcion];
 					setStore({ [tipo]: nuevoArrayDetalles });
@@ -95,6 +96,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
+			},
+			crearOferta: async (nombre, fecha, descripcion, politicaTeletrabajo) => {
+				const store = getStore();
+				let url = `${process.env.API_REST}/oferta`;
+
+				let bodyObjeto = {
+					nombre: nombre,
+					fecha: fecha,
+					descripcion: descripcion,
+					politica_teletrabajo: politicaTeletrabajo,
+					cualificaciones: store.cualificaciones,
+					condiciones: store.condiciones,
+					habilidades: store.habilidades,
+					responsabilidades: store.responsabilidades
+				};
+
+				let bodyJSON = JSON.stringify(bodyObjeto);
+				let options = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					},
+					body: bodyJSON
+				};
+
+				const res = await fetch(url, options);
+				return res.ok;
 			},
 			cambiarContrasenna: (contraseñaNueva, contraseñaVieja) => {
 				var myHeaders = new Headers();
