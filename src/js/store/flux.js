@@ -5,6 +5,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			experiencia: [],
 			certificaciones: [],
 			idiomas: [],
+			cualificaciones: [],
+			habilidades: [],
+			condiciones: [],
+			responsabilidades: [],
 			empresa: undefined,
 			user: ""
 		},

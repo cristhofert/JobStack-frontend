@@ -13,7 +13,7 @@ export const InfoProfesional = props => {
 		setColorBoton("");
 	};
 	return (
-		<div className="my-2 justify-content-center align-items-center d-flex">
+		<div className={`my-2 justify-content-${props.profesional ? "center" : "start"} align-items-center d-flex`}>
 			{props.editar ? (
 				<i
 					onMouseEnter={mouseEnter}
@@ -35,5 +35,6 @@ InfoProfesional.propTypes = {
 	editar: PropTypes.bool,
 	descripcion: PropTypes.string,
 	index: PropTypes.number,
-	tipo: PropTypes.string
+	tipo: PropTypes.string,
+	profesional: PropTypes.bool
 };

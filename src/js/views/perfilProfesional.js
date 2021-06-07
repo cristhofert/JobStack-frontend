@@ -83,6 +83,7 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Educacion}
 											tipo={"educacion"}
+											profesional={true}
 										/>
 									);
 								})}
@@ -101,6 +102,7 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Experiencia}
 											tipo={"experiencia"}
+											profesional={true}
 										/>
 									);
 								})}
@@ -129,6 +131,7 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Certificacion}
 											tipo={"certificaciones"}
+											profesional={true}
 										/>
 									);
 								})}
@@ -147,6 +150,7 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Idioma}
 											tipo={"idiomas"}
+											profesional={true}
 										/>
 									);
 								})}
