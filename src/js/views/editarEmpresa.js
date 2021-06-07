@@ -9,42 +9,18 @@ import { Context } from "../store/appContext";
 export const EditarEmpresa = () => {
 	const { store, actions } = useContext(Context);
 	const [editar, setEditar] = useState(false);
-	const [descripcion, setDescripcion] = useState("");
-	const [comentarios, setComentarios] = useState("");
-	const [sitioweb, setSitioweb] = useState("");
-	const [departamento, setDepartamento] = useState("");
-	const [direccion, setDireccion] = useState("");
-	const [github, setGithub] = useState("");
-	const [linkedin, setLinkedin] = useState("");
-	const [twitter, setTwitter] = useState("");
-	const [facebook, setFacebook] = useState("");
-	const [id, setId] = useState(0);
-	const [nombre, setNombre] = useState("Nombre Empresa");
 
-	/*     useEffect(() => {
-        actions.obtenerMiEmpresa()
-        setDescripcion(store.empresa.descripcion)
-        setComentarios(store.empresa.comentarios)
-        setSitioweb(store.empresa.sitioweb)
-        setDepartamento(store.empresa.descripcion)
-        setDireccion(store.empresa.direccion)
-        setGithub(store.empresa.github)
-        setLinkedin(Store.empresa.linkedin)
-        setTwitter(store.empresa.twitter)
-        setFacebook(store.empresa.facebook)
-        setNombre(store.empresa.nombre)
-        setId(store.empresa.id)
-    }, []);
-
-    useEffect(() => {
-        actions.editarEmprea({
-            id , descripcion,comentarios,sitioweb,departamento,direccion,github,linkedin,twitter,facebook, nombre
-        })
-    }, [editar]) */
+	useEffect(() => {
+		actions.obtenerMiEmpresa();
+	}, []);
 
 	const editarPerfil = () => {
 		setEditar(!editar);
+		if (!editar) {
+			actions.editarEmpresa();
+		}
 	};
+
 	return (
 		<div className="perfilProfesionalFondo" style={{ backgroundImage: `url(${Imagen})` }}>
 			<div className="perfil container pb-5 mb-5 shadow">
@@ -59,13 +35,13 @@ export const EditarEmpresa = () => {
 									id="nombre"
 									className="form-control"
 									placeholder="Nombre"
-									onChange={e => setNombre(e.target.value)}
-									value={nombre}
+									onChange={e => actions.setEmpresa({ nombre: e.target.value })}
+									value={store.empresa.nombre}
 									required
 								/>
 							</div>
 						) : (
-							<h1 className="mb-4 align-self-center">{nombre}</h1>
+							<h1 className="mb-4 align-self-center">{store.empresa.nombre}</h1>
 						)}
 					</div>
 					<div className="col-sm-12 col-md-3 d-flex justify-content-center">
@@ -82,12 +58,12 @@ export const EditarEmpresa = () => {
 
 				<div className="row">
 					<div className="col px-5 mb-4">
-						{descripcion.length != 0 ? <h2>Descripcion</h2> : ""}
+						{store.empresa.descripcion.length != 0 ? <h2>Descripcion</h2> : ""}
 						{editar ? (
 							<form>
 								<textarea
-									onChange={e => setDescripcion(e.target.value)}
-									value={descripcion}
+									onChange={e => actions.setEmpresa({ descripcion: e.target.value })}
+									value={store.empresa.descripcion}
 									className="form-control"
 									id="descripcion"
 									rows="3"
@@ -95,7 +71,7 @@ export const EditarEmpresa = () => {
 								/>
 							</form>
 						) : (
-							<p>{descripcion}</p>
+							<p>{store.empresa.descripcion}</p>
 						)}
 					</div>
 				</div>
@@ -116,13 +92,13 @@ export const EditarEmpresa = () => {
 													id="sitioweb"
 													className="form-control"
 													placeholder="Sitio Web"
-													onChange={e => setSitioweb(e.target.value)}
-													value={sitioweb}
+													onChange={e => actions.setEmpresa({ sitioweb: e.target.value })}
+													value={store.empresa.sitioweb}
 													required
 												/>
 											</div>
 										) : (
-											<p className="col-sm">{sitioweb}</p>
+											<p className="col-sm">{store.empresa.sitioweb}</p>
 										)}
 									</div>
 									<div className="form-group row">
@@ -141,13 +117,15 @@ export const EditarEmpresa = () => {
 														id="departamento"
 														className="form-control"
 														placeholder="Departamento"
-														onChange={e => setDepartamento(e.target.value)}
-														value={departamento}
+														onChange={e =>
+															actions.setEmpresa({ departamento: e.target.value })
+														}
+														value={store.empresa.departamento}
 														required
 													/>
 												</div>
 											) : (
-												<p className="col-sm">{departamento}</p>
+												<p className="col-sm">{store.empresa.departamento}</p>
 											)}
 										</div>
 									</div>
@@ -162,13 +140,15 @@ export const EditarEmpresa = () => {
 														id="direccion"
 														className="form-control"
 														placeholder="Dirección"
-														onChange={e => setDireccion(e.target.value)}
-														value={direccion}
+														onChange={e =>
+															actions.setEmpresa({ direccion: e.target.value })
+														}
+														value={store.empresa.direccion}
 														required
 													/>
 												</div>
 											) : (
-												<p className="col-sm">{direccion}</p>
+												<p className="col-sm">{store.empresa.direccion}</p>
 											)}
 										</div>
 									</div>
@@ -182,7 +162,7 @@ export const EditarEmpresa = () => {
 											<i
 												className="fab fa-github"
 												onClick={() =>
-													github.length != 0
+													store.empresa.github.length != 0
 														? window.open(`https://github.com/${github}`, "_blank")
 														: ""
 												}
@@ -192,7 +172,7 @@ export const EditarEmpresa = () => {
 											<i
 												className="fab fa-linkedin"
 												onClick={() =>
-													linkedin.length != 0
+													store.empresa.linkedin.length != 0
 														? window.open(`https://linkedin.com/in/${linkedin}`, "_blank")
 														: ""
 												}
@@ -203,7 +183,7 @@ export const EditarEmpresa = () => {
 											<i
 												className="fab fa-twitter"
 												onClick={() =>
-													twitter.length != 0
+													store.empresa.twitter.length != 0
 														? window.open(`https://twitter.com/${twitter}`, "_blank")
 														: ""
 												}
@@ -214,7 +194,7 @@ export const EditarEmpresa = () => {
 											<i
 												className="fab fa-facebook"
 												onClick={() =>
-													facebook.length != 0
+													store.empresa.facebook.length != 0
 														? window.open(`https://facebook.com/${facebook}`, "_blank")
 														: ""
 												}
@@ -239,8 +219,10 @@ export const EditarEmpresa = () => {
 															id="github"
 															className="form-control"
 															placeholder="GitHub"
-															onChange={e => setGithub(e.target.value)}
-															value={github}
+															onChange={e =>
+																actions.setEmpresa({ github: e.target.value })
+															}
+															value={store.empresa.github}
 															required
 														/>
 													</div>
@@ -262,8 +244,10 @@ export const EditarEmpresa = () => {
 															id="linkedin"
 															className="form-control"
 															placeholder="Linkedin"
-															onChange={e => setLinkedin(e.target.value)}
-															value={linkedin}
+															onChange={e =>
+																actions.setEmpresa({ linkedin: e.target.value })
+															}
+															value={store.empresa.linkedin}
 															required
 														/>
 													</div>
@@ -285,8 +269,10 @@ export const EditarEmpresa = () => {
 															id="twitter"
 															className="form-control"
 															placeholder="Twitter"
-															onChange={e => setTwitter(e.target.value)}
-															value={twitter}
+															onChange={e =>
+																actions.setEmpresa({ twitter: e.target.value })
+															}
+															value={store.empresa.twitter}
 															required
 														/>
 													</div>
@@ -308,8 +294,10 @@ export const EditarEmpresa = () => {
 															id="facebook"
 															className="form-control"
 															placeholder="Facebook"
-															onChange={e => setFacebook(e.target.value)}
-															value={facebook}
+															onChange={e =>
+																actions.setEmpresa({ facebook: e.target.value })
+															}
+															value={store.empresa.facebook}
 															required
 														/>
 													</div>
@@ -326,12 +314,12 @@ export const EditarEmpresa = () => {
 				</div>
 				<div className="row">
 					<div className="col px-5 mb-4">
-						{comentarios.length != 0 ? <h2>Comentarios adicionales</h2> : ""}
+						{store.empresa.comentarios.length != 0 ? <h2>Comentarios adicionales</h2> : ""}
 						{editar ? (
 							<form>
 								<textarea
-									onChange={e => setComentarios(e.target.value)}
-									value={comentarios}
+									onChange={e => actions.setEmpresa({ comentarios: e.target.value })}
+									value={store.empresa.comentarios}
 									className="form-control"
 									id="comentarios"
 									rows="3"
@@ -339,7 +327,7 @@ export const EditarEmpresa = () => {
 								/>
 							</form>
 						) : (
-							<p>{comentarios}</p>
+							<p>{store.empresa.comentarios}</p>
 						)}
 					</div>
 				</div>
