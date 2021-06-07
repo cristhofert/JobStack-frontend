@@ -5,10 +5,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 			experiencia: [],
 			certificaciones: [],
 			idiomas: [],
-			empresa: undefined,
+			empresa: {
+				descripcion: "",
+				comentarios: "",
+				sitioweb: "",
+				departamento: "",
+				direccion: "",
+				direccion: "",
+				github: "",
+				linkedin: "",
+				twitter: "",
+				facebook: "",
+				id: 0,
+				nombre: ""
+			},
+
 			user: ""
 		},
 		actions: {
+			setEmpresa: empresa => {
+				const store = getStore();
+				setStore({ empresa: { ...store.empresa, ...empresa } });
+			},
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
@@ -75,6 +93,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`${process.env.API_REST}/empresa/${id}`, requestOptions)
 					.then(response => response.json())
 					.then(result => setStore({ empresa: result }))
+					.catch(error => console.log("error", error));
+			},
+			obtenerMiEmpresa: () => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var requestOptions = {
+					method: "GET",
+					headers: myHeaders,
+
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/empresa/`, requestOptions)
+					.then(response => response.json())
+					.then(result => setStore({ empresa: result }))
+					.catch(error => console.log("error", error));
+			},
+			editarEmpresa: () => {
+				const store = getStore();
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var raw = JSON.stringify(store.empresa);
+
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				fetch(`${API_REST}/empresa`, requestOptions)
+					.then(response => response.json())
+					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
 			}
 		}
