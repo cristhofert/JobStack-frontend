@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ [tipo]: detalleNuevo });
 			},
 			agregarDetalle: (descripcion, tipo) => {
-				if (descripcion.length > 0) {
+				if (descripcion.nombre.length > 0) {
 					const store = getStore();
 					const nuevoArrayDetalles = [...store[tipo], descripcion];
 					setStore({ [tipo]: nuevoArrayDetalles });
@@ -122,8 +122,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				const res = await fetch(url, options);
-                return res.ok;
-            },
+				return res.ok;
+			},
 			cambiarContrasenna: (contraseñaNueva, contraseñaVieja) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Authorization", sessionStorage.getItem("token"));
