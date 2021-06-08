@@ -5,6 +5,7 @@
 h1{
     color: #023E8A;
     font-size: 50px;
+    font-weight: bold;
 }
 
 .cartas{
@@ -19,6 +20,7 @@ h1{
 
 h2{
     color:#023E8A;
+    font-weight: bold;
 }
 
 p{
@@ -64,7 +66,7 @@ label{
 
 @media screen and (min-width: 768px) {
   .div-derecha {
-    border-left: 2px solid gray;
+    border-left: 2px solid #4D0095;
   }
 }
 

@@ -220,7 +220,7 @@ export const RegistrarEmpresa = () => {
 				<div className="row">
 					<div className="col-sm-3" />
 					<div className="col-sm">
-						<h4>Datos de Inisio de Sesión</h4>
+						<h4>Datos de Inicio de Sesión</h4>
 						<br />
 					</div>
 				</div>
