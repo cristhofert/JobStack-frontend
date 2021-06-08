@@ -19,6 +19,7 @@ h1{
 
 h2{
     color:#023E8A;
+    font-size: 36px;
 }
 
 p{
@@ -37,13 +38,13 @@ label{
 }
 
 .boton{
-    background-color: #0096C7;
-    border-color: #0096C7;
+    background-color: #4D0095;
+    border-color: #4D0095;
     color: white;
 }
 
 .boton:hover{
-    background-color: #0077B6;
+    background-color: #3c0074;
     color: white;
 }
 
@@ -146,4 +147,14 @@ label{
 
 .oferta{
     border: 1px #006CAE solid;
+}
+
+.formCrearOferta{
+    background: #1E75B3;
+    border-radius: 10px;
+}
+
+.requisitos{
+    background: #1E75B3;
+    border-radius: 10px;
 }
