@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Imagen from "../../img/ImagenPerfilProfesional.jpg";
 
 import { ProyectoProfesional } from "../component/proyectoProfesional";
@@ -10,10 +10,13 @@ export const PerfilProfesional = () => {
 	const { store, actions } = useContext(Context);
 	const [editar, setEditar] = useState(false);
 
+	useEffect(() => {
+		actions.cargarInfoDePerfil();
+	}, []);
+
 	const editarPerfil = () => {
-		console.log(store.profesional);
 		setEditar(!editar);
-		if (!editar) {
+		if (editar) {
 			actions.editarProfesional();
 		}
 	};
@@ -63,8 +66,8 @@ export const PerfilProfesional = () => {
 				</div>
 
 				{!(
-					store.profesional.educacion.length ||
-					store.profesional.experiencia.length ||
+					store.profesional.estudios.length ||
+					store.profesional.experiencias.length ||
 					store.profesional.idiomas.length ||
 					store.profesional.certificaciones.length
 				) ? (
@@ -76,52 +79,47 @@ export const PerfilProfesional = () => {
 				<div className="row my-2">
 					<div className="col-sm-12 col-md-6 text-center">
 						<div className="col my-2">
-							{store.profesional.educacion.length != 0 ? <h2>Educacion</h2> : ""}
+							{store.profesional.estudios.length != 0 ? <h2>Educacion</h2> : ""}
 							<div className="detalles">
-								{store.profesional.educacion != undefined ? (
-									store.profesional.educacion.map((Educacion, index) => {
-										return (
-											<InfoProfesional
-												key={index}
-												index={index}
-												editar={editar}
-												descripcion={Educacion}
-												tipo={"educacion"}
-												profesional={true}
-											/>
-										);
-									})
-								) : (
-									<h2>Cargando...</h2>
-								)}
-							</div>
-
-							{editar ? <AgregarDetallesProf tipo={"educacion"} /> : ""}
-						</div>
-						<div className="col my-2">
-							{store.profesional.experiencia.length != 0 ? <h2>Experiencia</h2> : ""}
-							<div className="detalles">
-								{store.profesional.experiencia.map((Experiencia, index) => {
+								{store.profesional.estudios.map((Educacion, index) => {
 									return (
 										<InfoProfesional
 											key={index}
 											index={index}
 											editar={editar}
-											descripcion={Experiencia}
-											tipo={"experiencia"}
+											descripcion={Educacion}
+											tipo={"estudios"}
 											profesional={true}
 										/>
 									);
 								})}
 							</div>
 
-							{editar ? <AgregarDetallesProf tipo={"experiencia"} /> : ""}
+							{editar ? <AgregarDetallesProf tipo={"estudios"} /> : ""}
+						</div>
+						<div className="col my-2">
+							{store.profesional.experiencias.length != 0 ? <h2>Experiencia</h2> : ""}
+							<div className="detalles">
+								{store.profesional.experiencias.map((Experiencia, index) => {
+									return (
+										<InfoProfesional
+											key={index}
+											index={index}
+											editar={editar}
+											descripcion={Experiencia}
+											tipo={"experiencias"}
+										/>
+									);
+								})}
+							</div>
+
+							{editar ? <AgregarDetallesProf tipo={"experiencias"} /> : ""}
 						</div>
 					</div>
 					<div
 						className={`col-sm-12 col-md-6 text-center ${
-							store.profesional.educacion.length ||
-							store.profesional.experiencia.length ||
+							store.profesional.estudios.length ||
+							store.profesional.experiencias.length ||
 							store.profesional.idiomas.length ||
 							store.profesional.certificaciones.length
 								? "div-derecha"
@@ -138,7 +136,6 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Certificacion}
 											tipo={"certificaciones"}
-											profesional={true}
 										/>
 									);
 								})}
@@ -157,7 +154,6 @@ export const PerfilProfesional = () => {
 											editar={editar}
 											descripcion={Idioma}
 											tipo={"idiomas"}
-											profesional={true}
 										/>
 									);
 								})}

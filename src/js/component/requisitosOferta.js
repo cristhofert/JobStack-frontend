@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Context } from "../store/appContext";
 
-export const InfoProfesional = props => {
+export const RequisitosOferta = props => {
 	const { store, actions } = useContext(Context);
 	const [colorBoton, setColorBoton] = useState("");
 	const mouseEnter = () => {
@@ -13,8 +13,8 @@ export const InfoProfesional = props => {
 		setColorBoton("");
 	};
 	return (
-		<div className={`my-2 justify-content-center align-items-center d-flex`}>
-			{props.editar ? (
+		<div className={`row my-2 text-left align-items-center`}>
+			<div className="col-1">
 				<i
 					onMouseEnter={mouseEnter}
 					onMouseLeave={mouseLeave}
@@ -23,16 +23,15 @@ export const InfoProfesional = props => {
 					}}
 					className={`${props.index || props.index == 0 ? colorBoton : ""} fas fa-times fa-lg mr-2`}
 				/>
-			) : (
-				""
-			)}
-			<p className="m-0">{props.descripcion.nombre}</p>
+			</div>
+			<div className="col-11">
+				<p className="m-0">{props.descripcion.nombre}</p>
+			</div>
 		</div>
 	);
 };
 
-InfoProfesional.propTypes = {
-	editar: PropTypes.bool,
+RequisitosOferta.propTypes = {
 	descripcion: PropTypes.object,
 	index: PropTypes.number,
 	tipo: PropTypes.string
