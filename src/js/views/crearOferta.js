@@ -12,9 +12,10 @@ export const CrearOferta = () => {
 	const [nombre, setNombre] = useState("");
 	const [descripcion, setDescripcion] = useState("");
 	const [fecha, setFecha] = useState("");
-	const [politicaTeletrabajo, setPoliticaTeletrabajo] = useState("");
+	const [presencialidad, setPresencialidad] = useState("Elegir...");
+	const [estado, setEstado] = useState("Activo");
 	const crearOferta = async () => {
-		const res = await actions.crearOferta(nombre, fecha, descripcion, politicaTeletrabajo);
+		const res = await actions.crearOferta(nombre, fecha, descripcion, presencialidad, estado);
 		if (res) {
 			history.push("/ofertas");
 		}
@@ -71,10 +72,29 @@ export const CrearOferta = () => {
 							<label className="sr-only" htmlFor="presencialidad">
 								Presencialidad
 							</label>
-							<select id="presencialidad" className="form-control">
+							<select
+								onChange={e => setPresencialidad(e.target.value)}
+								value={presencialidad}
+								id="presencialidad"
+								className="form-control">
 								<option selected>Elegir...</option>
 								<option>Remoto</option>
 								<option>Presencial</option>
+							</select>
+						</div>
+						<div className="form-group">
+							<h2 className="text-light">Estado</h2>
+							<label className="sr-only" htmlFor="estado">
+								estado
+							</label>
+							<select
+								onChange={e => setEstado(e.target.value)}
+								value={estado}
+								id="estado"
+								className="form-control">
+								<option selected>Elegir...</option>
+								<option>Activo</option>
+								<option>Pausado</option>
 							</select>
 						</div>
 					</div>

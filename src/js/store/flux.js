@@ -98,7 +98,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
 			},
-			crearOferta: async (nombre, fecha, descripcion, politicaTeletrabajo) => {
+			crearOferta: async (nombre, fecha, descripcion, presencialidad, estado) => {
 				const store = getStore();
 				let url = `${process.env.API_REST}/oferta`;
 
@@ -106,7 +106,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					nombre: nombre,
 					fecha: fecha,
 					descripcion: descripcion,
-					politica_teletrabajo: politicaTeletrabajo,
+					presencialidad: presencialidad,
+					estado: estado,
 					cualificaciones: store.cualificaciones,
 					condiciones: store.condiciones,
 					habilidades: store.habilidades,
