@@ -15,7 +15,7 @@ export const CrearOferta = () => {
 	const crearOferta = async () => {
 		const res = await actions.crearOferta(nombre, fecha, descripcion, politicaTeletrabajo);
 		if (res) {
-			history.push("/");
+			history.push("/ofertas");
 		}
 	};
 	return (

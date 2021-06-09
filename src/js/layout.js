@@ -17,6 +17,8 @@ import { PerfilProfesional } from "./views/perfilProfesional";
 import { EditarEmpresa } from "./views/editarEmpresa";
 import { Empresa } from "./views/empresa";
 import { CrearOferta } from "./views/crearOferta";
+import { Oferta } from "./views/oferta";
+import { VerOfertas } from "./views/verOfertas";
 
 //create your first component
 const Layout = () => {
@@ -48,6 +50,9 @@ const Layout = () => {
 						<Route exact path="/crear-oferta">
 							<CrearOferta />
 						</Route>
+						<Route exact path="/ofertas">
+							<VerOfertas />
+						</Route>
 						<Route exact path="/registro-empresa">
 							<RegistrarEmpresa />
 						</Route>
@@ -62,6 +67,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/oferta">
+							<Oferta />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
