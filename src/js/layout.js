@@ -9,6 +9,7 @@ import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 import { CambiarContraseña } from "./views/cambiarContrasenna";
 import { RecuperarContraseña } from "./views/recuperarContraseña";
+import { CambiarPass } from "./views/cambiarPass";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -74,6 +75,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/recuperarContraseña">
 							<RecuperarContraseña />
+						</Route>
+						<Route exact path="/cambiarPass/">
+							<CambiarPass />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
