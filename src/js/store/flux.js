@@ -24,6 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				nombre: "",
 				ofertas: []
 			},
+
 			user: ""
 		},
 		actions: {
@@ -204,6 +205,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
+			},
+			registrarProfesional: (email, contrasenna) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					email,
+					contrasenna
+				});
+
+				var requestOptions = {
+					method: "POST",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				return fetch(`${process.env.API_REST}/registoprofesional`, requestOptions)
+					.then(response => response.json())
+					.then(result => {
+						return result;
+					})
+					.catch(error => {
+						return error.message;
+					});
 			}
 		}
 	};
