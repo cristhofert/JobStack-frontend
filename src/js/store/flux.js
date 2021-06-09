@@ -28,7 +28,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				ofertas: []
 			},
 
-			user: ""
+			user: "",
+			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -269,6 +270,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => {
 						return error.message;
 					});
+			},
+			buscar: consulta => {
+				var requestOptions = {
+					method: "GET",
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/buscar/${consulta}`, requestOptions)
+					.then(response => response.json())
+					.then(result => setStore({ resultados: result }))
+					.catch(error => console.log("error", error));
 			}
 		}
 	};
