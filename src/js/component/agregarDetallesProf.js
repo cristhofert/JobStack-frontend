@@ -12,7 +12,7 @@ export const AgregarDetallesProf = props => {
 				onSubmit={e => {
 					e.preventDefault();
 					const detalle = { nombre: placeholder };
-					actions.agregarDetalle(detalle, props.tipo);
+					actions.setProfesional({ [props.tipo]: detalle });
 					setPlaceholder("");
 				}}
 				className="form">

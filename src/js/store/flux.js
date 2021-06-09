@@ -1,14 +1,17 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			educacion: [],
-			experiencia: [],
-			certificaciones: [],
-			idiomas: [],
-			cualificaciones: [],
 			habilidades: [],
 			condiciones: [],
 			responsabilidades: [],
+			cualificaciones: [],
+			profesional: {
+				descripcion: "",
+				educacion: [],
+				experiencia: [],
+				certificaciones: [],
+				idiomas: []
+			},
 			empresa: {
 				descripcion: "",
 				comentarios: "",
@@ -31,6 +34,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setEmpresa: empresa => {
 				const store = getStore();
 				setStore({ empresa: { ...store.empresa, ...empresa } });
+			},
+			setProfesional: profesional => {
+				const store = getStore();
+				setStore({ profesional: { ...store.profesional, ...profesional } });
 			},
 			loadSomeData: () => {
 				/**
@@ -206,6 +213,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
 			},
+			editarProfesional: () => {},
 			registrarProfesional: (email, contrasenna) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
