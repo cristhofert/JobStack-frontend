@@ -21,7 +21,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				twitter: "",
 				facebook: "",
 				id: 0,
-				nombre: ""
+				nombre: "",
+				ofertas: []
 			},
 			user: ""
 		},
@@ -123,6 +124,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				const res = await fetch(url, options);
 				return res.ok;
+			},
+			cargarOfertas: async () => {
+				const store = getStore();
+				let url = `${process.env.API_REST}/ofertas`;
+
+				let options = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					}
+				};
+
+				const res = await fetch(url, options);
+				if (res.ok) {
+					const data = await res.json();
+					let nuevaEmpresa = { ...store.empresa, ofertas: data };
+					setStore({ empresa: nuevaEmpresa });
+				} else {
+					console.log(res.status);
+				}
 			},
 			cambiarContrasenna: (contraseñaNueva, contraseñaVieja) => {
 				var myHeaders = new Headers();
