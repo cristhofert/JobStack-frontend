@@ -1,14 +1,17 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			educacion: [],
-			experiencia: [],
-			certificaciones: [],
-			idiomas: [],
-			cualificaciones: [],
 			habilidades: [],
 			condiciones: [],
 			responsabilidades: [],
+			cualificaciones: [],
+			profesional: {
+				descripcion: "",
+				estudios: [],
+				experiencias: [],
+				certificaciones: [],
+				idiomas: []
+			},
 			empresa: {
 				descripcion: "",
 				comentarios: "",
@@ -32,6 +35,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setEmpresa: empresa => {
 				const store = getStore();
 				setStore({ empresa: { ...store.empresa, ...empresa } });
+			},
+			setProfesional: profesional => {
+				const store = getStore();
+				setStore({ profesional: { ...store.profesional, ...profesional } });
 			},
 			loadSomeData: () => {
 				/**
@@ -59,9 +66,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
-				const detalleNuevo = [...store[tipo]];
+				const detalleNuevo = [...store.profesional[tipo]];
 				detalleNuevo.splice(id, 1);
-				setStore({ [tipo]: detalleNuevo });
+				setStore({ profesional: { ...store.profesional, [tipo]: detalleNuevo } });
 			},
 			agregarDetalle: (descripcion, tipo) => {
 				if (descripcion.nombre.length > 0) {
@@ -188,6 +195,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
 			},
+			cargarInfoDePerfil: async () => {
+				if (sessionStorage.getItem("token")) {
+					let options = {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: sessionStorage.getItem("token")
+						}
+					};
+
+					const res = await fetch(`${process.env.API_REST}/perfil-profesional`, options);
+					const data = await res.json();
+					setStore({ profesional: data });
+				}
+			},
 			editarEmpresa: () => {
 				const store = getStore();
 				var myHeaders = new Headers();
@@ -207,6 +229,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
+			},
+			editarProfesional: async () => {
+				const store = getStore();
+
+				let bodyJSON = JSON.stringify(store.profesional);
+
+				let options = {
+					method: "PUT",
+					headers: { "Content-Type": "application/json", Authorization: sessionStorage.getItem("token") },
+					body: bodyJSON,
+					redirect: "follow"
+				};
+
+				const res = await fetch(`${process.env.API_REST}/perfil-profesional`, options);
+				const data = await res.json();
+				console.log(data);
 			},
 			registrarProfesional: (email, contrasenna) => {
 				var myHeaders = new Headers();
