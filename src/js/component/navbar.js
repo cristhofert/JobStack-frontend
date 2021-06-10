@@ -24,37 +24,43 @@ export const Navbar = () => {
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
-						<li className="nav-item">
-							<a className="nav-link text-light disabled">Calificar</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link text-light disabled">Nosotros</a>
-						</li>
-						<li className="nav-item">
-							<Link className="navbarLink nav-link text-light" to="/login">
-								Iniciar Sesión
-							</Link>
-						</li>
-						<li className="nav-item dropdown">
-							<a
-								className="navbarLink nav-link dropdown-toggle text-light"
-								id="navbarDropdown"
-								role="button"
-								data-toggle="dropdown"
-								aria-haspopup="true"
-								aria-expanded="false">
-								Registrarse
-							</a>
-							<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-								<Link className="navbarLink text-dark dropdown-item" to="/registro-profesional">
-									Profesional
-								</Link>
-								<div className="dropdown-divider" />
-								<Link className="navbarLink text-dark dropdown-item" to="/registro-empresa">
-									Empresa
-								</Link>
-							</div>
-						</li>
+						{sessionStorage.getItem("token") ? (
+							"login"
+						) : (
+							<>
+								<li className="nav-item">
+									<a className="nav-link text-light disabled">Calificar</a>
+								</li>
+								<li className="nav-item">
+									<a className="nav-link text-light disabled">Nosotros</a>
+								</li>
+								<li className="nav-item">
+									<Link className="navbarLink nav-link text-light" to="/login">
+										Iniciar Sesión
+									</Link>
+								</li>
+								<li className="nav-item dropdown">
+									<a
+										className="navbarLink nav-link dropdown-toggle text-light"
+										id="navbarDropdown"
+										role="button"
+										data-toggle="dropdown"
+										aria-haspopup="true"
+										aria-expanded="false">
+										Registrarse
+									</a>
+									<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+										<Link className="navbarLink text-dark dropdown-item" to="/registro-profesional">
+											Profesional
+										</Link>
+										<div className="dropdown-divider" />
+										<Link className="navbarLink text-dark dropdown-item" to="/registro-empresa">
+											Empresa
+										</Link>
+									</div>
+								</li>
+							</>
+						)}
 					</ul>
 				</div>
 			</div>

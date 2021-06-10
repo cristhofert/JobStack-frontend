@@ -23,6 +23,7 @@ export const PerfilProfesional = () => {
 
 	useEffect(() => {
 		if (!sessionStorage.getItem("token")) history.push("/login");
+		if (store.tipoDeUsuario == "empresa") history.push("/login");
 	}, []);
 
 	return (

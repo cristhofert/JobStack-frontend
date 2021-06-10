@@ -84,7 +84,7 @@ const Layout = () => {
 							<CambiarPass />
 						</Route>
 						<Route>
-							<h1>Not found!</h1>
+							<h1>Error HTTP 404 No Encontrado!</h1>
 						</Route>
 					</Switch>
 					<Footer />
