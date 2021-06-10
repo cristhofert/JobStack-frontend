@@ -20,6 +20,11 @@ export const PerfilProfesional = () => {
 			actions.editarProfesional();
 		}
 	};
+
+	useEffect(() => {
+		if (!sessionStorage.getItem("token")) history.push("/login");
+	}, []);
+
 	return (
 		<div className="perfilProfesionalFondo" style={{ backgroundImage: `url(${Imagen})` }}>
 			<div className="perfil container pb-5 mb-5 shadow">

@@ -76,7 +76,7 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/buscar/:consulta">
 							<Buscador />
-                            </Route>
+						</Route>
 						<Route exact path="/recuperarContraseña">
 							<RecuperarContraseña />
 						</Route>

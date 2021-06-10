@@ -20,6 +20,11 @@ export const CrearOferta = () => {
 			history.push("/ofertas");
 		}
 	};
+
+	useEffect(() => {
+		if (!sessionStorage.getItem("token")) history.push("/login");
+	}, []);
+
 	return (
 		<div className="container">
 			<div className="formCrearOferta p-4 my-5 shadow-lg">
