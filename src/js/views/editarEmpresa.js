@@ -38,7 +38,7 @@ export const EditarEmpresa = () => {
 							<div className="col-sm">
 								<input
 									id="nombre"
-									className="form-control"
+									className="form-control my-4"
 									placeholder="Nombre"
 									onChange={e => actions.setEmpresa({ nombre: e.target.value })}
 									value={store.empresa.nombre}

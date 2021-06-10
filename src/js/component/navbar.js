@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
+	let mi_perfil =
+		store.tipoDeUsuario == "profesional"
+			? "/perfil-profesional"
+			: store.tipoDeUsuario == "empresa"
+				? "/empresa"
+				: "/logout";
+
 	return (
 		<nav className="nav-footer-color py-3 navbar navbar-expand-sm navbar-light">
 			<div className="container">
@@ -24,16 +34,27 @@ export const Navbar = () => {
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
+						<li className="nav-item">
+							<a className="nav-link text-light disabled">Calificar</a>
+						</li>
+						<li className="nav-item">
+							<a className="nav-link text-light disabled">Nosotros</a>
+						</li>
 						{sessionStorage.getItem("token") ? (
-							"login"
-						) : (
 							<>
 								<li className="nav-item">
-									<a className="nav-link text-light disabled">Calificar</a>
+									<Link className="navbarLink nav-link text-light" to={mi_perfil}>
+										Mi Perfil
+									</Link>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link text-light disabled">Nosotros</a>
+									<Link className="navbarLink nav-link text-light" to="/logout">
+										Cerrar Sesión
+									</Link>
 								</li>
+							</>
+						) : (
+							<>
 								<li className="nav-item">
 									<Link className="navbarLink nav-link text-light" to="/login">
 										Iniciar Sesión

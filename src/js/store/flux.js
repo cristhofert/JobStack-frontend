@@ -69,6 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: () => {
 				setStore({ user: {} });
+				setStore({ tipoDeUsuario: "" });
 				sessionStorage.removeItem("token");
 			},
 			borrarDetalle: (id, tipo) => {
@@ -269,7 +270,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				try {
-					const response = await fetch(`${process.env.API_REST}/registoprofesional`, requestOptions);
+					const response = await fetch(`${process.env.API_REST}/registroprofesional`, requestOptions);
 					const result = await response.json();
 					return result;
 				} catch (error) {

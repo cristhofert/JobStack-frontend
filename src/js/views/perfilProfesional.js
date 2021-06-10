@@ -34,7 +34,20 @@ export const PerfilProfesional = () => {
 						<div className="FotoPerfilProfesional" />
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
-						<h1 className="mb-4 align-self-center">Nombre Apellido</h1>
+						{editar ? (
+							<div className="col-sm">
+								<input
+									id="nombre"
+									className="form-control my-4"
+									placeholder="Nombre"
+									onChange={e => actions.setProfesional({ nombre: e.target.value })}
+									value={store.profesional.nombre}
+									required
+								/>
+							</div>
+						) : (
+							<h1 className="mb-4 align-self-center">{store.profesional.nombre}</h1>
+						)}
 					</div>
 					<div className="col-sm-12 col-md-3 d-flex justify-content-center">
 						<button onClick={editarPerfil} className="mb-4 mr-2 btn btn-primary align-self-center boton">

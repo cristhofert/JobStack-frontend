@@ -22,6 +22,7 @@ import { CrearOferta } from "./views/crearOferta";
 import { Oferta } from "./views/oferta";
 import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
+import { Logout } from "./views/logout";
 
 //create your first component
 const Layout = () => {
@@ -40,6 +41,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/logout">
+							<Logout />
 						</Route>
 						<Route exact path="/cambiarcontrasenna">
 							<CambiarContraseña />
