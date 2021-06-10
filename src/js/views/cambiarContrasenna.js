@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/home.scss";
 
@@ -22,6 +22,10 @@ export const CambiarContraseña = () => {
 			setConfirmPassword("");
 		}
 	};
+
+	useEffect(() => {
+		if (!sessionStorage.getItem("token")) history.push("/login");
+	}, []);
 
 	return (
 		<div className="container my-auto">
