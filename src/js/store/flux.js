@@ -192,6 +192,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				await fetch(`${process.env.API_REST}/recuperarPass`, options);
 			},
 
+			cambiarPassRecuperacion: async (token, password) => {
+				const tokenRemplazado = token.replace(/\$/g, ".");
+				const bodyJSON = JSON.stringify({
+					nuevaPass: password
+				});
+				const options = {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: tokenRemplazado
+					},
+					body: bodyJSON
+				};
+				const res = await fetch(`${process.env.API_REST}/cambiarPassRecuperacion`, options);
+				return res.ok;
+			},
+
 			obtenerMiEmpresa: () => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
