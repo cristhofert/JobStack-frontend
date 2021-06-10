@@ -23,6 +23,7 @@ import { Oferta } from "./views/oferta";
 import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
+import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
 
 //create your first component
 const Layout = () => {
@@ -83,6 +84,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/recuperarContraseña">
 							<RecuperarContraseña />
+						</Route>
+						<Route exact path="/recuperarContraseña/:token">
+							<CambiarPassRecuperacion />
 						</Route>
 						<Route exact path="/cambiarPass/">
 							<CambiarPass />
