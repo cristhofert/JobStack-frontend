@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
 import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 
 export const RegistrarEmpresa = () => {
+	const history = useHistory();
 	const [nombre, setNombre] = useState("");
 	const [descripcion, setDescripcion] = useState("");
 	const [departamento, setDepartamento] = useState("MONTEVIDEO");
@@ -25,21 +27,24 @@ export const RegistrarEmpresa = () => {
 		e.preventDefault();
 		setAlerta("");
 		if (contrasenna === repetir_contrasenna) {
-			actions.registrarEmpresa({
-				nombre,
-				descripcion,
-				departamento,
-				direccion,
-				sitio_web,
-				linkedin,
-				github,
-				facebook,
-				twitter,
-				comentarios,
-				email,
-				contrasenna,
-				icono: nombre
-			});
+			actions
+				.registrarEmpresa({
+					nombre,
+					descripcion,
+					departamento,
+					direccion,
+					sitio_web,
+					linkedin,
+					github,
+					facebook,
+					twitter,
+					comentarios,
+					email,
+					contrasenna,
+					icono: nombre
+				})
+				.then(msg => (typeof msg === "object" && msg !== null ? history.push("/login") : setAlerta(msg)))
+				.catch(err => setAlerta(err));
 		} else {
 			setAlerta("Contraseña no coincide");
 		}
