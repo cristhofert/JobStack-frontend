@@ -22,6 +22,8 @@ import { CrearOferta } from "./views/crearOferta";
 import { Oferta } from "./views/oferta";
 import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
+import { Logout } from "./views/logout";
+import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
 
 //create your first component
 const Layout = () => {
@@ -40,6 +42,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/logout">
+							<Logout />
 						</Route>
 						<Route exact path="/cambiarcontrasenna">
 							<CambiarContraseña />
@@ -80,11 +85,14 @@ const Layout = () => {
 						<Route exact path="/recuperarContraseña">
 							<RecuperarContraseña />
 						</Route>
+						<Route exact path="/recuperarContraseña/:token">
+							<CambiarPassRecuperacion />
+						</Route>
 						<Route exact path="/cambiarPass/">
 							<CambiarPass />
 						</Route>
 						<Route>
-							<h1>Not found!</h1>
+							<h1>Error HTTP 404 No Encontrado!</h1>
 						</Route>
 					</Switch>
 					<Footer />
