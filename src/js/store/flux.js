@@ -177,6 +177,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
 			},
+			recuperarPass: async email => {
+				const bodyJSON = JSON.stringify({
+					email: email
+				});
+				const options = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					},
+					body: bodyJSON
+				};
+				await fetch(`${process.env.API_REST}/recuperarPass`, options);
+			},
 
 			obtenerMiEmpresa: () => {
 				var myHeaders = new Headers();
