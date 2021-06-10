@@ -30,7 +30,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			user: {},
 			tipoDeUsuario: "",
-			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
+			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }],
+			oferta: {
+				id: 0,
+				nombre: "cargando...",
+				fecha: "cargando...",
+				descripcion: "cargando...",
+				politica_teletrabajo: "cargando...",
+				estado: "cargando...",
+				cualificaciones: [
+					{
+						id: 1,
+						nombre: "cargando..."
+					},
+					{
+						id: 2,
+						nombre: "cargando..."
+					}
+				],
+				condiciones: [
+					{
+						id: 1,
+						nombre: "cargando..."
+					},
+					{
+						id: 2,
+						nombre: "cargando..."
+					}
+				],
+				habilidades: [
+					{
+						id: 1,
+						nombre: "cargando..."
+					},
+					{
+						id: 2,
+						nombre: "cargando..."
+					}
+				],
+				responsabilidades: [
+					{
+						id: 1,
+						nombre: "cargando..."
+					},
+					{
+						id: 2,
+						nombre: "cargando..."
+					}
+				]
+			}
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -318,6 +366,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => setStore({ resultados: result }))
 					.catch(error => console.log("error", error));
+			},
+			obtenerOferta: id => {
+				console.log("obtener oferta");
+				var requestOptions = {
+					method: "GET",
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/oferta/${id}`, requestOptions)
+					.then(response => response.json())
+					.then(result => {
+						setStore({ oferta: result });
+					})
+					.catch(error =>
+						setStore({
+							oferta: {
+								id: 0,
+								nombre: "No existe",
+								fecha: "",
+								descripcion: "",
+								politica_teletrabajo: "",
+								estado: "",
+								cualificaciones: [],
+								condiciones: [],
+								habilidades: [],
+								responsabilidades: []
+							}
+						})
+					);
 			}
 		}
 	};
