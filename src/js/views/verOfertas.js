@@ -22,13 +22,13 @@ export const VerOfertas = () => {
 					Crear nueva oferta
 				</Link>
 			</div>
-			<div className="listaOfertas mt-3 shadow">
+			<div className="listaOfertas m-3 shadow">
 				{store.empresa.ofertas[0] ? (
 					ofertas.map(oferta => {
 						return <Oferta key={oferta.id} oferta={oferta} />;
 					})
 				) : (
-					<h1>{mensaje}</h1>
+					<h1 className="text-center p-3">{mensaje}</h1>
 				)}
 			</div>
 		</div>

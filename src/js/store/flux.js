@@ -1,10 +1,18 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			habilidades: [],
-			condiciones: [],
-			responsabilidades: [],
-			cualificaciones: [],
+			oferta: {
+				id: 0,
+				nombre: "",
+				descripcion: "",
+				fecha: "",
+				presencialidad: "remoto",
+				estado: "activo",
+				habilidades: [],
+				condiciones: [],
+				responsabilidades: [],
+				cualificaciones: []
+			},
 			profesional: {
 				descripcion: "",
 				estudios: [],
@@ -27,58 +35,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				nombre: "",
 				ofertas: []
 			},
-
 			user: {},
 			tipoDeUsuario: "",
-			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }],
-			oferta: {
-				id: 0,
-				nombre: "cargando...",
-				fecha: "cargando...",
-				descripcion: "cargando...",
-				politica_teletrabajo: "cargando...",
-				estado: "cargando...",
-				cualificaciones: [
-					{
-						id: 1,
-						nombre: "cargando..."
-					},
-					{
-						id: 2,
-						nombre: "cargando..."
-					}
-				],
-				condiciones: [
-					{
-						id: 1,
-						nombre: "cargando..."
-					},
-					{
-						id: 2,
-						nombre: "cargando..."
-					}
-				],
-				habilidades: [
-					{
-						id: 1,
-						nombre: "cargando..."
-					},
-					{
-						id: 2,
-						nombre: "cargando..."
-					}
-				],
-				responsabilidades: [
-					{
-						id: 1,
-						nombre: "cargando..."
-					},
-					{
-						id: 2,
-						nombre: "cargando..."
-					}
-				]
-			}
+			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -130,6 +89,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				detalleNuevo.splice(id, 1);
 				setStore({ profesional: { ...store.profesional, [tipo]: detalleNuevo } });
 			},
+			borrarDetalleOferta: (id, tipo) => {
+				const store = getStore();
+				const detalleNuevo = [...store.oferta[tipo]];
+				detalleNuevo.splice(id, 1);
+				setStore({ oferta: { ...store.oferta, [tipo]: detalleNuevo } });
+			},
 			agregarDetalle: (descripcion, tipo) => {
 				if (descripcion.nombre.length > 0) {
 					const store = getStore();
@@ -165,20 +130,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
 			},
-			crearOferta: async (nombre, fecha, descripcion, presencialidad, estado) => {
+			crearOferta: async () => {
 				const store = getStore();
 				let url = `${process.env.API_REST}/oferta`;
 
 				let bodyObjeto = {
-					nombre: nombre,
-					fecha: fecha,
-					descripcion: descripcion,
-					presencialidad: presencialidad,
-					estado: estado,
-					cualificaciones: store.cualificaciones,
-					condiciones: store.condiciones,
-					habilidades: store.habilidades,
-					responsabilidades: store.responsabilidades
+					nombre: store.oferta.nombre,
+					fecha: store.oferta.fecha,
+					descripcion: store.oferta.descripcion,
+					presencialidad: store.oferta.presencialidad,
+					estado: store.oferta.estado,
+					cualificaciones: store.oferta.cualificaciones,
+					condiciones: store.oferta.condiciones,
+					habilidades: store.oferta.habilidades,
+					responsabilidades: store.oferta.responsabilidades
 				};
 
 				let bodyJSON = JSON.stringify(bodyObjeto);
@@ -319,6 +284,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
+			},
+			editarOferta: id => {
+				const store = getStore();
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var raw = JSON.stringify(store.oferta);
+
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				return fetch(`${process.env.API_REST}/oferta/${id}`, requestOptions).then(response => response.json());
 			},
 			editarProfesional: async () => {
 				const store = getStore();

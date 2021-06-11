@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Context } from "../store/appContext";
 
-export const AgregarDetallesProf = props => {
+export const AgregarDetallesOferta = props => {
 	const { store, actions } = useContext(Context);
 	const [placeholder, setPlaceholder] = useState("");
 	return (
@@ -13,7 +13,7 @@ export const AgregarDetallesProf = props => {
 					e.preventDefault();
 					if (placeholder != "") {
 						const detalle = { nombre: placeholder };
-						actions.setProfesional({ [props.tipo]: [...store.profesional[props.tipo], detalle] });
+						actions.setOferta({ [props.tipo]: [...store.oferta[props.tipo], detalle] });
 					}
 					setPlaceholder("");
 				}}
@@ -39,6 +39,6 @@ export const AgregarDetallesProf = props => {
 	);
 };
 
-AgregarDetallesProf.propTypes = {
+AgregarDetallesOferta.propTypes = {
 	tipo: PropTypes.string
 };

@@ -1,18 +1,42 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import { AgregarDetallesOferta } from "../component/agregarDetallesOferta";
+import { RequisitosOferta } from "../component/requisitosOferta";
+import { useHistory } from "react-router-dom";
+
 export const EditarOferta = () => {
 	const params = useParams();
+	let history = useHistory();
 	const { store, actions } = useContext(Context);
+	const [alerta, setAlerta] = useState("");
 
 	useEffect(() => {
 		actions.obtenerOferta(params.id);
 	}, []);
 
+	const guardar = () => {
+		setAlerta("");
+		actions
+			.editarOferta(params.id)
+			.then(
+				result =>
+					typeof result === "object" && result !== null
+						? history.push("/ofertas")
+						: setAlerta("Hubo un fallo iterno, reintente mas tarde")
+			)
+			.catch(error => setAlerta("Error: ", error));
+	};
 	return (
 		<>
 			<div className="container-fluid py-5" id="oferta">
+				{alerta != "" ? (
+					<div className="alert alert-danger" role="alert">
+						{alerta}
+					</div>
+				) : (
+					""
+				)}
 				<div className="container">
 					<div className="row">
 						<div className="col-8">
@@ -31,15 +55,11 @@ export const EditarOferta = () => {
 									value={store.oferta.presencialidad}
 									id="presencialidad"
 									className="form-control">
-									<option selected>Elegir...</option>
 									<option>Remoto</option>
 									<option>Presencial</option>
 								</select>
 							</h2>
 							<h2 className="text-white" id="subtitulo" />
-							<button type="submit" className="botonPostular btn mt-3">
-								Postularse
-							</button>
 						</div>
 						<div className="col-4 div-derecha">
 							<h3 className="ml-5" id="empresa">
@@ -60,50 +80,96 @@ export const EditarOferta = () => {
 			<div className="container mt-3">
 				<div className="row justify-content-center">
 					<div className="col-md-8">
-						<h2>Descripción</h2>
-						<textarea
-							onChange={e => actions.setOferta({ descripcion: e.target.value })}
-							className="form-control"
-							id="descripcion"
-							value={store.oferta.descripcion}
-							rows="6"
-							placeholder="Descripcion"
-							required
-						/>
-						<h2>Responsabilidades</h2>
-						<p>
+						<div classaName="my-2">
+							<h2>Descripción</h2>
+							<textarea
+								onChange={e => actions.setOferta({ descripcion: e.target.value })}
+								className="form-control"
+								id="descripcion"
+								value={store.oferta.descripcion}
+								rows="6"
+								placeholder="Descripcion"
+								required
+							/>
+						</div>
+
+						<div className="my-2">
+							<h2>Responsabilidades</h2>
+
 							<ul>
 								{store.oferta.responsabilidades.map((responsabilidad, i) => {
-									return <li key={i}>{responsabilidad.nombre}</li>;
+									return (
+										<RequisitosOferta
+											key={i}
+											index={i}
+											descripcion={responsabilidad}
+											tipo={"responsabilidades"}
+										/>
+									);
 								})}
 							</ul>
 							<AgregarDetallesOferta tipo={"responsabilidades"} />
-						</p>
-						<h2>Cualificaciones</h2>
-						<p>
+						</div>
+
+						<div className="my-1">
+							<h2>Cualificaciones</h2>
+
 							<ul>
 								{store.oferta.cualificaciones.map((cualificacion, i) => {
-									return <li key={i}>{cualificacion.nombre}</li>;
+									return (
+										<RequisitosOferta
+											key={i}
+											index={i}
+											descripcion={cualificacion}
+											tipo={"cualificaciones"}
+										/>
+									);
 								})}
 							</ul>
-						</p>
-						<h2>Habilidades requeridas</h2>
-						<p>
+							<AgregarDetallesOferta tipo={"cualificaciones"} />
+						</div>
+
+						<div className="my-1">
+							<h2>Habilidades requeridas</h2>
+
 							<ul>
 								{store.oferta.habilidades.map((habilidad, i) => {
-									return <li key={i}>{habilidad.nombre}</li>;
+									return (
+										<RequisitosOferta
+											key={i}
+											index={i}
+											descripcion={habilidad}
+											tipo={"habilidades"}
+										/>
+									);
 								})}
 							</ul>
-						</p>
-						<h2>Condiciones</h2>
-						<p>
+							<AgregarDetallesOferta tipo={"habilidades"} />
+						</div>
+
+						<div className="mb-3 my-1">
+							<h2>Condiciones</h2>
+
 							<ul>
 								{store.oferta.condiciones.map((condicion, i) => {
-									return <li key={i}>{condicion.nombre}</li>;
+									return (
+										<RequisitosOferta
+											key={i}
+											index={i}
+											descripcion={condicion}
+											tipo={"condiciones"}
+										/>
+									);
 								})}
 							</ul>
-						</p>
+							<AgregarDetallesOferta tipo={"condiciones"} />
+						</div>
 					</div>
+				</div>
+				<div className="row justify-content-end">
+					<button className="boton btn  m-3" onClick={guardar}>
+						Guardar
+					</button>
 				</div>
 			</div>
 		</>
