@@ -1,10 +1,17 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			habilidades: [],
-			condiciones: [],
-			responsabilidades: [],
-			cualificaciones: [],
+			oferta: {
+				nombre: "",
+				descripcion: "",
+				fecha: "",
+				presencialidad: "remoto",
+				estado: "activo",
+				habilidades: [],
+				condiciones: [],
+				responsabilidades: [],
+				cualificaciones: []
+			},
 			profesional: {
 				descripcion: "",
 				estudios: [],
@@ -40,6 +47,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setProfesional: profesional => {
 				const store = getStore();
 				setStore({ profesional: { ...store.profesional, ...profesional } });
+			},
+			setOferta: oferta => {
+				const store = getStore();
+				setStore({ oferta: { ...store.oferta, ...oferta } });
 			},
 			loadSomeData: () => {
 				/**
@@ -113,20 +124,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => setStore({ empresa: result }))
 					.catch(error => console.log("error", error));
 			},
-			crearOferta: async (nombre, fecha, descripcion, presencialidad, estado) => {
+			crearOferta: async () => {
 				const store = getStore();
 				let url = `${process.env.API_REST}/oferta`;
 
 				let bodyObjeto = {
-					nombre: nombre,
-					fecha: fecha,
-					descripcion: descripcion,
-					presencialidad: presencialidad,
-					estado: estado,
-					cualificaciones: store.cualificaciones,
-					condiciones: store.condiciones,
-					habilidades: store.habilidades,
-					responsabilidades: store.responsabilidades
+					nombre: store.oferta.nombre,
+					fecha: store.oferta.fecha,
+					descripcion: store.oferta.descripcion,
+					presencialidad: store.oferta.presencialidad,
+					estado: store.oferta.estado,
+					cualificaciones: store.oferta.cualificaciones,
+					condiciones: store.oferta.condiciones,
+					habilidades: store.oferta.habilidades,
+					responsabilidades: store.oferta.responsabilidades
 				};
 
 				let bodyJSON = JSON.stringify(bodyObjeto);

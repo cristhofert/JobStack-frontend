@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
-import { InfoProfesional } from "../component/infoProfesional";
-import { AgregarDetallesProf } from "../component/agregarDetallesProf";
+import { AgregarDetallesOferta } from "../component/agregarDetallesOferta";
 import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
 import { RequisitosOferta } from "../component/requisitosOferta";
@@ -9,13 +8,8 @@ import { RequisitosOferta } from "../component/requisitosOferta";
 export const CrearOferta = () => {
 	const { store, actions } = useContext(Context);
 	let history = useHistory();
-	const [nombre, setNombre] = useState("");
-	const [descripcion, setDescripcion] = useState("");
-	const [fecha, setFecha] = useState("");
-	const [presencialidad, setPresencialidad] = useState("Elegir...");
-	const [estado, setEstado] = useState("Activo");
 	const crearOferta = async () => {
-		const res = await actions.crearOferta(nombre, fecha, descripcion, presencialidad, estado);
+		const res = await actions.crearOferta();
 		if (res) {
 			history.push("/ofertas");
 		}
@@ -39,9 +33,11 @@ export const CrearOferta = () => {
 							<input
 								type="text"
 								onChange={e =>
-									e.target.value.trim() != "" ? setNombre(e.target.value) : setNombre("")
+									e.target.value.trim() != ""
+										? actions.setOferta({ nombre: e.target.value })
+										: actions.setOferta({ nombre: "" })
 								}
-								value={nombre}
+								value={store.oferta.nombre}
 								className="form-control"
 								id="nombreOferta"
 							/>
@@ -53,11 +49,13 @@ export const CrearOferta = () => {
 							</label>
 							<textarea
 								onChange={e =>
-									e.target.value.trim() != "" ? setDescripcion(e.target.value) : setDescripcion("")
+									e.target.value.trim() != ""
+										? actions.setOferta({ descripcion: e.target.value })
+										: actions.setOferta({ descripcion: "" })
 								}
 								className="form-control"
 								id="descripcionCrearOferta"
-								value={descripcion}
+								value={store.oferta.descripcion}
 								rows="6"
 							/>
 						</div>
@@ -66,11 +64,11 @@ export const CrearOferta = () => {
 						<div className="form-group">
 							<h2 className="text-light">Fecha de finalización</h2>
 							<input
-								onChange={e => setFecha(e.target.value)}
+								onChange={e => actions.setOferta({ fecha: e.target.value })}
 								type="date"
 								className="form-control"
 								id="fechaOferta"
-								value={fecha}
+								value={store.oferta.fecha}
 							/>
 						</div>
 						<div className="form-group">
@@ -79,11 +77,10 @@ export const CrearOferta = () => {
 								Presencialidad
 							</label>
 							<select
-								onChange={e => setPresencialidad(e.target.value)}
-								value={presencialidad}
+								onChange={e => actions.setOferta({ presencialidad: e.target.value })}
+								value={store.oferta.presencialidad}
 								id="presencialidad"
 								className="form-control">
-								<option selected>Elegir...</option>
 								<option>Remoto</option>
 								<option>Presencial</option>
 							</select>
@@ -94,11 +91,10 @@ export const CrearOferta = () => {
 								estado
 							</label>
 							<select
-								onChange={e => setEstado(e.target.value)}
-								value={estado}
+								onChange={e => actions.setOferta({ estado: e.target.value })}
+								value={store.oferta.estado}
 								id="estado"
 								className="form-control">
-								<option selected>Elegir...</option>
 								<option>Activo</option>
 								<option>Pausado</option>
 							</select>
@@ -112,7 +108,7 @@ export const CrearOferta = () => {
 					<div className="requisitos shadow p-4 my-2">
 						<h2 className="text-light">Cualificaciones</h2>
 						<div className="detalles text-light">
-							{store.cualificaciones.map((Cualificacion, index) => {
+							{store.oferta.cualificaciones.map((Cualificacion, index) => {
 								return (
 									<RequisitosOferta
 										key={index}
@@ -124,7 +120,7 @@ export const CrearOferta = () => {
 							})}
 						</div>
 						<div className="col-md-8 mt-2 mx-auto">
-							<AgregarDetallesProf tipo={"cualificaciones"} />
+							<AgregarDetallesOferta tipo={"cualificaciones"} />
 						</div>
 					</div>
 				</div>
@@ -132,7 +128,7 @@ export const CrearOferta = () => {
 					<div className="requisitos shadow p-4 my-2">
 						<h2 className="text-light">Habilidades Deseadas</h2>
 						<div className="detalles text-light">
-							{store.habilidades.map((Habilidad, index) => {
+							{store.oferta.habilidades.map((Habilidad, index) => {
 								return (
 									<RequisitosOferta
 										key={index}
@@ -144,7 +140,7 @@ export const CrearOferta = () => {
 							})}
 						</div>
 						<div className="col-md-8 mt-2 mx-auto">
-							<AgregarDetallesProf tipo={"habilidades"} />
+							<AgregarDetallesOferta tipo={"habilidades"} />
 						</div>
 					</div>
 				</div>
@@ -152,7 +148,7 @@ export const CrearOferta = () => {
 					<div className="requisitos shadow p-4 my-2">
 						<h2 className="text-light">Condiciones</h2>
 						<div className="detalles text-light">
-							{store.condiciones.map((Condicion, index) => {
+							{store.oferta.condiciones.map((Condicion, index) => {
 								return (
 									<RequisitosOferta
 										key={index}
@@ -164,7 +160,7 @@ export const CrearOferta = () => {
 							})}
 						</div>
 						<div className="col-md-8 mt-2 mx-auto">
-							<AgregarDetallesProf tipo={"condiciones"} />
+							<AgregarDetallesOferta tipo={"condiciones"} />
 						</div>
 					</div>
 				</div>
@@ -172,7 +168,7 @@ export const CrearOferta = () => {
 					<div className="requisitos shadow p-4 my-2">
 						<h2 className="text-light">Responsabilidades</h2>
 						<div className="detalles text-light">
-							{store.responsabilidades.map((Responsabilidad, index) => {
+							{store.oferta.responsabilidades.map((Responsabilidad, index) => {
 								return (
 									<RequisitosOferta
 										key={index}
@@ -184,7 +180,7 @@ export const CrearOferta = () => {
 							})}
 						</div>
 						<div className="col-md-8 mt-2 mx-auto">
-							<AgregarDetallesProf tipo={"responsabilidades"} />
+							<AgregarDetallesOferta tipo={"responsabilidades"} />
 						</div>
 					</div>
 				</div>
