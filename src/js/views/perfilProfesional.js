@@ -35,7 +35,7 @@ export const PerfilProfesional = () => {
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
 						{editar ? (
-							<div className="col-sm">
+							<div className="col-sm align-self-center">
 								<input
 									id="nombre"
 									className="form-control my-4"

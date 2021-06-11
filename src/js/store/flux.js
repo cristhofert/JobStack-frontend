@@ -274,7 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: "follow"
 				};
 
-				fetch(`${API_REST}/empresa`, requestOptions)
+				fetch(`${process.env.API_REST}/empresa`, requestOptions)
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
