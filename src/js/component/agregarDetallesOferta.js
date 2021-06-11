@@ -29,7 +29,7 @@ export const AgregarDetallesOferta = props => {
 						/>
 					</div>
 					<div className="col-sm-12 col-md-3 px-1">
-						<button type="submit" className="boton btn btn-primary">
+						<button type="submit" className="boton btn">
 							Agregar
 						</button>
 					</div>

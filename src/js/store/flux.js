@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			oferta: {
+				id: 0,
 				nombre: "",
 				descripcion: "",
 				fecha: "",
@@ -34,7 +35,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				nombre: "",
 				ofertas: []
 			},
-
 			user: {},
 			tipoDeUsuario: "",
 			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
@@ -88,6 +88,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const detalleNuevo = [...store.profesional[tipo]];
 				detalleNuevo.splice(id, 1);
 				setStore({ profesional: { ...store.profesional, [tipo]: detalleNuevo } });
+			},
+			borrarDetalleOferta: (id, tipo) => {
+				const store = getStore();
+				const detalleNuevo = [...store.oferta[tipo]];
+				detalleNuevo.splice(id, 1);
+				setStore({ oferta: { ...store.oferta, [tipo]: detalleNuevo } });
 			},
 			agregarDetalle: (descripcion, tipo) => {
 				if (descripcion.nombre.length > 0) {
@@ -279,6 +285,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.catch(error => console.log("error", error));
 			},
+			editarOferta: id => {
+				const store = getStore();
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", sessionStorage.getItem("token"));
+
+				var raw = JSON.stringify(store.oferta);
+
+				var requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				return fetch(`${process.env.API_REST}/oferta/${id}`, requestOptions).then(response => response.json());
+			},
 			editarProfesional: async () => {
 				const store = getStore();
 
@@ -329,6 +352,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(result => setStore({ resultados: result }))
 					.catch(error => console.log("error", error));
+			},
+			obtenerOferta: id => {
+				console.log("obtener oferta");
+				var requestOptions = {
+					method: "GET",
+					redirect: "follow"
+				};
+
+				fetch(`${process.env.API_REST}/oferta/${id}`, requestOptions)
+					.then(response => response.json())
+					.then(result => {
+						setStore({ oferta: result });
+					})
+					.catch(error =>
+						setStore({
+							oferta: {
+								id: 0,
+								nombre: "No existe",
+								fecha: "",
+								descripcion: "",
+								politica_teletrabajo: "",
+								estado: "",
+								cualificaciones: [],
+								condiciones: [],
+								habilidades: [],
+								responsabilidades: []
+							}
+						})
+					);
 			}
 		}
 	};
