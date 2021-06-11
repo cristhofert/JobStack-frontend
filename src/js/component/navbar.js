@@ -40,6 +40,15 @@ export const Navbar = () => {
 						<li className="nav-item">
 							<a className="nav-link text-light disabled">Nosotros</a>
 						</li>
+						{mi_perfil == "/empresa" ? (
+							<li className="nav-item">
+								<Link className="navbarLink nav-link text-light" to="/ofertas">
+									Ofertas
+								</Link>
+							</li>
+						) : (
+							""
+						)}
 						{sessionStorage.getItem("token") ? (
 							<>
 								<li className="nav-item">

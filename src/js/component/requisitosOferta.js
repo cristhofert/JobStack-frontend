@@ -19,7 +19,7 @@ export const RequisitosOferta = props => {
 					onMouseEnter={mouseEnter}
 					onMouseLeave={mouseLeave}
 					onClick={() => {
-						actions.borrarDetalle(props.index, props.tipo);
+						actions.borrarDetalleOferta(props.index, props.tipo);
 					}}
 					className={`${props.index || props.index == 0 ? colorBoton : ""} fas fa-times fa-lg mr-2`}
 				/>
