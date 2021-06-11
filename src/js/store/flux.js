@@ -89,6 +89,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				setStore({ profesional: { ...store.profesional, ...profesional } });
 			},
+			setOferta: oferta => {
+				const store = getStore();
+				setStore({ oferta: { ...store.oferta, ...oferta } });
+			},
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))

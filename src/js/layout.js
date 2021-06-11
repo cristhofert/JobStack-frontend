@@ -20,6 +20,7 @@ import { EditarEmpresa } from "./views/editarEmpresa";
 import { Empresa } from "./views/empresa";
 import { CrearOferta } from "./views/crearOferta";
 import { Oferta } from "./views/oferta";
+import { EditarOferta } from "./views/editar_oferta";
 import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
@@ -78,6 +79,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/oferta/:id">
 							<Oferta />
+						</Route>
+						<Route exact path="/oferta/:id/editar">
+							<EditarOferta />
 						</Route>
 						<Route exact path="/buscar/:consulta">
 							<Buscador />
