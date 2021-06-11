@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
+import GoogleLogin from "react-google-login";
 
 export const RegistroProfesional = () => {
 	const history = useHistory();
@@ -26,6 +27,10 @@ export const RegistroProfesional = () => {
 		} else {
 			setAlert("La contraseñas no coinciden");
 		}
+	};
+
+	const responseGoogle = respuesta => {
+		console.log(respuesta);
 	};
 	return (
 		<div className="container my-auto">
@@ -79,6 +84,12 @@ export const RegistroProfesional = () => {
 					<div className="mt-3 d-flex justify-content-center align-items-center">
 						<h2>Otros medios de registro</h2>
 					</div>
+					<GoogleLogin
+						clientId="1012985398043-gai3nn9i7h16i49easo40lpvcumeqg2c.apps.googleusercontent.com"
+						onSuccess={responseGoogle}
+						onFailure={responseGoogle}
+						cookiePolicy={"single_host_origin"}
+					/>
 				</div>
 			</div>
 		</div>

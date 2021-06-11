@@ -17,6 +17,7 @@ export const CrearOferta = () => {
 
 	useEffect(() => {
 		if (!sessionStorage.getItem("token")) history.push("/login");
+		if (store.tipoDeUsuario == "profesional") history.push("/login");
 	}, []);
 
 	return (

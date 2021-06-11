@@ -35,7 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				ofertas: []
 			},
 
-			user: "",
+			user: {},
+			tipoDeUsuario: "",
 			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
 		},
 		actions: {
@@ -70,10 +71,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else {
 					const data = await res.json();
 					sessionStorage.setItem("token", data.token);
-					setStore({ email: data.user.email });
+					setStore({ user: data.user });
+					if (data.user.comentarios) setStore({ tipoDeUsuario: "empresa" });
+					else setStore({ tipoDeUsuario: "profesional" });
 				}
 
 				return res.ok;
+			},
+			logout: () => {
+				setStore({ user: {} });
+				setStore({ tipoDeUsuario: "" });
+				sessionStorage.removeItem("token");
 			},
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
@@ -101,10 +109,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: "follow"
 				};
 
-				fetch(`${process.env.API_REST}/empresa`, requestOptions)
+				return fetch(`${process.env.API_REST}/empresa`, requestOptions)
 					.then(response => response.json())
-					.then(result => console.log(result))
-					.catch(error => console.log("error", error));
+					.then(result => result);
 			},
 			obtenerEmpresa: id => {
 				var requestOptions = {
@@ -288,7 +295,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await res.json();
 				console.log(data);
 			},
-			registrarProfesional: (email, contrasenna) => {
+			registrarProfesional: async (email, contrasenna) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
@@ -304,14 +311,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: "follow"
 				};
 
-				return fetch(`${process.env.API_REST}/registoprofesional`, requestOptions)
-					.then(response => response.json())
-					.then(result => {
-						return result;
-					})
-					.catch(error => {
-						return error.message;
-					});
+				try {
+					const response = await fetch(`${process.env.API_REST}/registroprofesional`, requestOptions);
+					const result = await response.json();
+					return result;
+				} catch (error) {
+					return error.message;
+				}
 			},
 			buscar: consulta => {
 				var requestOptions = {
