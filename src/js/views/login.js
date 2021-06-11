@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/home.scss";
+import GoogleLogin from "react-google-login";
 
 import { Context } from "../store/appContext";
 
@@ -19,6 +20,10 @@ export const Login = () => {
 		} else {
 			setError(true);
 		}
+	};
+
+	const responseGoogle = respuesta => {
+		console.log(respuesta);
 	};
 	return (
 		<div className="container my-auto">
@@ -83,6 +88,12 @@ export const Login = () => {
 					<div className="mt-3 d-flex justify-content-center align-items-center">
 						<h2>Otros medios de ingreso</h2>
 					</div>
+					<GoogleLogin
+						clientId="1012985398043-gai3nn9i7h16i49easo40lpvcumeqg2c.apps.googleusercontent.com"
+						onSuccess={responseGoogle}
+						onFailure={responseGoogle}
+						cookiePolicy={"single_host_origin"}
+					/>
 				</div>
 			</div>
 		</div>
