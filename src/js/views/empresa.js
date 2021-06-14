@@ -6,6 +6,7 @@ import { ProyectoProfesional } from "../component/proyectoProfesional";
 import { InfoProfesional } from "../component/infoProfesional";
 import { Ofertas } from "../component/ofertas";
 import { Context } from "../store/appContext";
+import md5 from "md5";
 
 export const Empresa = () => {
 	const { store, actions } = useContext(Context);
@@ -47,7 +48,12 @@ export const Empresa = () => {
 			<div className="perfil container pb-5 mb-5 shadow">
 				<div className="row">
 					<div className="col-sm-12 col-md-4 d-flex justify-content-center">
-						<div className="FotoPerfilProfesional" />
+						<div>
+							<img
+								className="logo_empresa"
+								src={`https://www.gravatar.com/avatar/${md5(store.empresa.email)}?d=identicon&s=200`}
+							/>
+						</div>
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
 						<h1 className="mb-4 align-self-center">{nombre}</h1>
