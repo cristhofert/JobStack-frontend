@@ -21,6 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				idiomas: []
 			},
 			empresa: {
+				email: "",
 				descripcion: "",
 				comentarios: "",
 				sitioweb: "",
