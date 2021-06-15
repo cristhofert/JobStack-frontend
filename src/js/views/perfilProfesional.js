@@ -18,6 +18,7 @@ export const PerfilProfesional = () => {
 		setEditar(!editar);
 		if (editar) {
 			actions.editarProfesional();
+			actions.cargarInfoDePerfil();
 		}
 	};
 
@@ -33,9 +34,10 @@ export const PerfilProfesional = () => {
 					<div className="col-sm-12 col-md-4 d-flex justify-content-center">
 						<img
 							className="avatar"
-							src={`https://avatar.oxro.io/avatar.svg?name=${
-								store.profesional.nombre
-							}&background=0000FF&color=023E8A&width=200px&height=200px&fontSize=100px&bold=true`}
+							src={`https://avatar.oxro.io/avatar.svg?name=${store.profesional.nombre +
+								" " +
+								store.profesional
+									.apellido}&background=0000FF&color=023E8A&width=200px&height=200px&fontSize=100px&bold=true`}
 						/>
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
@@ -49,9 +51,19 @@ export const PerfilProfesional = () => {
 									value={store.profesional.nombre}
 									required
 								/>
+								<input
+									id="apellido"
+									className="form-control my-4"
+									placeholder="Apellido"
+									onChange={e => actions.setProfesional({ apellido: e.target.value })}
+									value={store.profesional.apellido}
+									required
+								/>
 							</div>
 						) : (
-							<h1 className="mb-4 align-self-center">{store.profesional.nombre}</h1>
+							<h1 className="mb-4 align-self-center">
+								{store.profesional.nombre + " " + store.profesional.apellido}
+							</h1>
 						)}
 					</div>
 					<div className="col-sm-12 col-md-3 d-flex justify-content-center">
@@ -187,15 +199,184 @@ export const PerfilProfesional = () => {
 						</div>
 					</div>
 				</div>
+				<div className="row">
+					{!editar ? (
+						<>
+							<div className="col-sm">
+								<h4>Redes Sociales</h4>
+							</div>
+							<div className="col-sm">
+								<h3>
+									<i
+										className="fab fa-github"
+										onClick={() =>
+											store.profesional.github.length != 0
+												? window.open(
+														`https://github.com/${store.profesional.github}`,
+														"_blank"
+												  )
+												: ""
+										}
+									/>
+								</h3>
+							</div>
+							<div className="col-sm">
+								<h4>
+									<i
+										className="fab fa-linkedin"
+										onClick={() =>
+											store.profesional.linkedin.length != 0
+												? window.open(
+														`https://linkedin.com/in/${store.profesional.linkedin}`,
+														"_blank"
+												  )
+												: ""
+										}
+									/>
+								</h4>
+							</div>
+							<div className="col-sm">
+								<h3>
+									<i
+										className="fab fa-twitter"
+										onClick={() =>
+											store.profesional.twitter.length != 0
+												? window.open(
+														`https://twitter.com/${store.profesional.twitter}`,
+														"_blank"
+												  )
+												: ""
+										}
+									/>
+								</h3>
+							</div>
+							<div className="col-sm">
+								<h3>
+									<i
+										className="fab fa-facebook"
+										onClick={() =>
+											store.profesional.facebook.length != 0
+												? window.open(
+														`https://facebook.com/${store.profesional.facebook}`,
+														"_blank"
+												  )
+												: ""
+										}
+									/>
+								</h3>
+							</div>
+						</>
+					) : (
+						<div className="col-sm">
+							<h4 className="text-justify">Redes Sociales</h4>
+							<form>
+								<div className="form-group row">
+									{editar ? (
+										<div className="col-sm">
+											<div className="input-group mb-2">
+												<div className="input-group-prepend">
+													<div className="input-group-text">
+														<i className="fab fa-github" />
+													</div>
+												</div>
+												<input
+													id="github"
+													className="form-control"
+													placeholder="GitHub"
+													onChange={e => actions.setProfesional({ github: e.target.value })}
+													value={store.profesional.github}
+													required
+												/>
+											</div>
+										</div>
+									) : (
+										""
+									)}
+								</div>
+								<div className="form-group row">
+									{editar ? (
+										<div className="col-sm">
+											<div className="input-group mb-2">
+												<div className="input-group-prepend">
+													<div className="input-group-text">
+														<i className="fab fa-linkedin" />
+													</div>
+												</div>
+												<input
+													id="linkedin"
+													className="form-control"
+													placeholder="Linkedin"
+													onChange={e => actions.setProfesional({ linkedin: e.target.value })}
+													value={store.profesional.linkedin}
+													required
+												/>
+											</div>
+										</div>
+									) : (
+										""
+									)}
+								</div>
+								<div className="form-group row">
+									{editar ? (
+										<div className="col-sm">
+											<div className="input-group mb-2">
+												<div className="input-group-prepend">
+													<div className="input-group-text">
+														<i className="fab fa-twitter" />
+													</div>
+												</div>
+												<input
+													id="twitter"
+													className="form-control"
+													placeholder="Twitter"
+													onChange={e => actions.setProfesional({ twitter: e.target.value })}
+													value={store.profesional.twitter}
+													required
+												/>
+											</div>
+										</div>
+									) : (
+										""
+									)}
+								</div>
+								<div className="form-group row">
+									{editar ? (
+										<div className="col-sm">
+											<div className="input-group mb-2">
+												<div className="input-group-prepend">
+													<div className="input-group-text">
+														<i className="fab fa-facebook" />
+													</div>
+												</div>
+												<input
+													id="facebook"
+													className="form-control"
+													placeholder="Facebook"
+													onChange={e => actions.setProfesional({ facebook: e.target.value })}
+													value={store.profesional.facebook}
+													required
+												/>
+											</div>
+										</div>
+									) : (
+										""
+									)}
+								</div>
+							</form>
+						</div>
+					)}
+				</div>
 				<div className="row justify-content-center">
 					<div className="col p-3">
 						<h1 className="text-center">Proyectos</h1>
 					</div>
 					<div className="col-sm-11 col-md-10">
 						<div className="listaProyectos">
-							<ProyectoProfesional />
-							<ProyectoProfesional />
-							<ProyectoProfesional />
+							{Array.isArray(store.repos)
+								? store.repos.map((repo, i) => {
+										return <ProyectoProfesional key={i} proyecto={repo} />;
+								  })
+								: "No tiene repositorios publicos"}
 						</div>
 					</div>
 				</div>

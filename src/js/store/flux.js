@@ -19,7 +19,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencias: [],
 				certificaciones: [],
 				idiomas: [],
+<<<<<<< HEAD
+				apellido: "",
+				facebook: "",
+				github: "",
+				id: 0,
+				linkedin: "",
+				nombre: "",
+				twitter: ""
+=======
 				postulaciones: []
+>>>>>>> develop
 			},
 			empresa: {
 				email: "",
@@ -39,7 +49,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			user: {},
 			tipoDeUsuario: "",
-			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
+			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }],
+			repos: [{ name: "Cargando...", description: "Cargando...", html_url: "" }]
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -307,7 +318,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const res = await fetch(`${process.env.API_REST}/perfil-profesional`, options);
 					const data = await res.json();
+
 					setStore({ profesional: data });
+
+					//obtener repos de github
+					var requestOptions = {
+						method: "GET",
+						redirect: "follow"
+					};
+
+					fetch(`https://api.github.com/users/${data.github}/repos`, requestOptions)
+						.then(response => response.json())
+						.then(result => setStore({ repos: result }))
+						.catch(error => console.log("error", error));
 				}
 			},
 			editarEmpresa: () => {
