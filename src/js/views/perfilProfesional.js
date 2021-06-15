@@ -18,6 +18,7 @@ export const PerfilProfesional = () => {
 		setEditar(!editar);
 		if (editar) {
 			actions.editarProfesional();
+			actions.cargarInfoDePerfil();
 		}
 	};
 
@@ -373,7 +374,7 @@ export const PerfilProfesional = () => {
 						<div className="listaProyectos">
 							{Array.isArray(store.repos)
 								? store.repos.map((repo, i) => {
-										return <ProyectoProfesional key={i} name={repo.name} />;
+										return <ProyectoProfesional key={i} proyecto={repo} />;
 								  })
 								: "No tiene repositorios publicos"}
 						</div>

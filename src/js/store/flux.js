@@ -46,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {},
 			tipoDeUsuario: "",
 			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }],
-			repos: [{ name: "a" }, { name: "b" }, { name: "c" }]
+			repos: [{ name: "Cargando...", description: "Cargando...", html_url: "" }]
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -271,7 +271,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const res = await fetch(`${process.env.API_REST}/perfil-profesional`, options);
 					const data = await res.json();
-					console.log(data);
+
 					setStore({ profesional: data });
 
 					//obtener repos de github
@@ -280,9 +280,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						redirect: "follow"
 					};
 
-					fetch(`https://api.github.com/users/${data.github.split("/")[1]}/repos`, requestOptions)
+					fetch(`https://api.github.com/users/${data.github}/repos`, requestOptions)
 						.then(response => response.json())
-						.then(result => setStore({ repo: result }))
+						.then(result => setStore({ repos: result }))
 						.catch(error => console.log("error", error));
 				}
 			},
