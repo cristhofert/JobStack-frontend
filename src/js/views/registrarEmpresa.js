@@ -106,9 +106,7 @@ export const RegistrarEmpresa = () => {
 							onChange={e => setDepartamento(e.target.value)}
 							value={departamento}
 							required>
-							<option selected value="MONTEVIDEO">
-								MONTEVIDEO
-							</option>
+							<option value="MONTEVIDEO">MONTEVIDEO</option>
 							<option value="ARTIGAS">ARTIGAS</option>
 							<option value="CANELONES">CANELONES</option>
 							<option value="CERRO LARGO">CERRO LARGO</option>

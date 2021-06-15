@@ -1,13 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 
 export const Oferta = () => {
 	const params = useParams();
 	const { store, actions } = useContext(Context);
+	const [postulado, setPostulado] = useState(false);
+
+	const postularse = async () => {
+		if (postulado) {
+			actions.borrarPostulacion(params.id);
+			setPostulado(!postulado);
+		} else {
+			actions.postularse(params.id);
+			setPostulado(!postulado);
+		}
+	};
 
 	useEffect(() => {
 		actions.obtenerOferta(params.id);
+		setPostulado(actions.postulado(params.id));
+		console.log(postulado);
 	}, []);
 
 	return (
@@ -18,11 +31,11 @@ export const Oferta = () => {
 						<div className="col-8">
 							<h1 id="titulo">{store.oferta.nombre}</h1>
 							<h2 className="text-white" id="subtitulo">
-								{store.oferta.politica_teletrabajo}
+								{store.oferta.presencialidad}
 							</h2>
 							<h2 className="text-white" id="subtitulo" />
-							<button type="submit" className="botonPostular btn mt-3">
-								Postularse
+							<button type="submit" onClick={postularse} className="botonPostular btn mt-3">
+								{postulado ? "Cancelar postulación" : "Postularse"}
 							</button>
 						</div>
 						<div className="col-4 div-derecha">
@@ -39,37 +52,29 @@ export const Oferta = () => {
 						<h2>Descripción</h2>
 						<p>{store.oferta.descripcion}</p>
 						<h2>Responsabilidades</h2>
-						<p>
-							<ul>
-								{store.oferta.responsabilidades.map((responsabilidad, i) => {
-									return <li key={i}>{responsabilidad.nombre}</li>;
-								})}
-							</ul>
-						</p>
+						<ul>
+							{store.oferta.responsabilidades.map((responsabilidad, i) => {
+								return <li key={i}>{responsabilidad.nombre}</li>;
+							})}
+						</ul>
 						<h2>Cualificaciones</h2>
-						<p>
-							<ul>
-								{store.oferta.cualificaciones.map((cualificacion, i) => {
-									return <li key={i}>{cualificacion.nombre}</li>;
-								})}
-							</ul>
-						</p>
+						<ul>
+							{store.oferta.cualificaciones.map((cualificacion, i) => {
+								return <li key={i}>{cualificacion.nombre}</li>;
+							})}
+						</ul>
 						<h2>Habilidades requeridas</h2>
-						<p>
-							<ul>
-								{store.oferta.habilidades.map((habilidad, i) => {
-									return <li key={i}>{habilidad.nombre}</li>;
-								})}
-							</ul>
-						</p>
+						<ul>
+							{store.oferta.habilidades.map((habilidad, i) => {
+								return <li key={i}>{habilidad.nombre}</li>;
+							})}
+						</ul>
 						<h2>Condiciones</h2>
-						<p>
-							<ul>
-								{store.oferta.condiciones.map((condicion, i) => {
-									return <li key={i}>{condicion.nombre}</li>;
-								})}
-							</ul>
-						</p>
+						<ul>
+							{store.oferta.condiciones.map((condicion, i) => {
+								return <li key={i}>{condicion.nombre}</li>;
+							})}
+						</ul>
 					</div>
 				</div>
 			</div>
