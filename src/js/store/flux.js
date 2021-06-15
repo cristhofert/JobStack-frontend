@@ -22,6 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				postulaciones: []
 			},
 			empresa: {
+				email: "",
 				descripcion: "",
 				comentarios: "",
 				sitioweb: "",
@@ -391,10 +392,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return error.message;
 				}
 			},
-			postulado: idOferta => {
+			postulado: async idOferta => {
 				const store = getStore();
+				const actions = getActions();
 				let i = 0;
 				let encontre = false;
+				await actions.obtenerPostulaciones;
 				while (!encontre && i < store.profesional.postulaciones) {
 					if (store.profesional.postulaciones[i].id == idOferta) {
 						encontre = true;
@@ -421,7 +424,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			obtenerOferta: id => {
-				console.log("obtener oferta");
 				var requestOptions = {
 					method: "GET",
 					redirect: "follow"

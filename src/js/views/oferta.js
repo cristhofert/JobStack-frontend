@@ -18,9 +18,9 @@ export const Oferta = () => {
 	};
 
 	useEffect(() => {
-		actions.obtenerPostulaciones();
 		actions.obtenerOferta(params.id);
-		setPostulado(actions.postulado());
+		setPostulado(actions.postulado(params.id));
+		console.log(postulado);
 	}, []);
 
 	return (
@@ -35,7 +35,7 @@ export const Oferta = () => {
 							</h2>
 							<h2 className="text-white" id="subtitulo" />
 							<button type="submit" onClick={postularse} className="botonPostular btn mt-3">
-								Postularse
+								{postulado ? "Cancelar postulación" : "Postularse"}
 							</button>
 						</div>
 						<div className="col-4 div-derecha">

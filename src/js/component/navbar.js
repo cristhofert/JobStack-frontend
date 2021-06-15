@@ -60,7 +60,7 @@ export const Navbar = () => {
 						{sessionStorage.getItem("token") ? (
 							<>
 								<li className="nav-item">
-									<Link className="navbarLink nav-link text-light" to={link}>
+									<Link className="navbarLink nav-link text-light" to={link ? link : "/"}>
 										Mi Perfil
 									</Link>
 								</li>

@@ -31,7 +31,12 @@ export const PerfilProfesional = () => {
 			<div className="perfil container pb-5 mb-5 shadow">
 				<div className="row">
 					<div className="col-sm-12 col-md-4 d-flex justify-content-center">
-						<div className="FotoPerfilProfesional" />
+						<img
+							className="avatar"
+							src={`https://avatar.oxro.io/avatar.svg?name=${
+								store.profesional.nombre
+							}&background=0000FF&color=023E8A&width=200px&height=200px&fontSize=100px&bold=true`}
+						/>
 					</div>
 					<div className="col-sm-12 col-md-5 d-flex">
 						{editar ? (
