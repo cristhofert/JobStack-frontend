@@ -1,112 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/home.scss";
+import DevImg from "../../img/DeveloperImage.png";
+import { useHistory } from "react-router-dom";
 
-export const HomePage = () => (
-	<div className="text-center mt-5">
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Desarrollo Web" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Ciencias de la Computacion" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Ingenieria de Software" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Fronted" />
-		<br />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Full-Stack" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Diseño Grafico" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Backend" />
-		<input className="btn btn-primary mr-2 mb-2" type="button" value="Marketing Digital" />
-
-		<h1>Destacados</h1>
-		<div className="container ">
-			<div className="cartas mx-auto d-block">
-				<div className="card mb-3 mx-auto border border-primary rounded-lg " style={{ maxWidth: "540px" }}>
-					<div className="row no-gutters">
-						<div className="col-md-4 mt-1">
-							<img
-								src="https://secure.gravatar.com/avatar/1cd30edf7c0caccee607be3524eee073?s=100&d=mm&r=g"
-								alt="..."
-							/>
-						</div>
-						<div className="col-md-8">
-							<div className="card-body">
-								<h5 className="text-left">Nombre puesto de trabajo</h5>
-								<p className="text-left">
-									Nombre empresa - Pais <a className="fecha">Fecha</a>
-								</p>
+export const HomePage = () => {
+	let historial = useHistory();
+	const [buscador, setBuscador] = useState("");
+	const buscar = () => {
+		historial.push(`/buscar/${buscador}`);
+	};
+	return (
+		<div className="coso container my-auto">
+			<div className="row justify-content-center text-center">
+				<div className="col-sm-12 col-md-8">
+					<h1 className="headerHome">Buscar empleo</h1>
+					<form onSubmit={buscar}>
+						<div className="form-row mx-2">
+							<div className="col-sm-12 col-md-10">
+								<label className="sr-only" htmlFor="buscador">
+									Buscar
+								</label>
+								<input
+									onChange={e => {
+										e.target.value.trim() != "" ? setBuscador(e.target.value) : setBuscador("");
+									}}
+									value={buscador}
+									className="form-control my-2 inputRegistro"
+									type="text"
+									id="buscador"
+									name="buscador"
+								/>
+							</div>
+							<div className="col-sm-12 col-md-2">
+								<button className="boton btn my-2" type="submit">
+									Buscar
+								</button>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div className="card mb-3 mx-auto border border-primary rounded-lg " style={{ maxWidth: "540px" }}>
-					<div className="row no-gutters">
-						<div className="col-md-4 mt-1">
-							<img
-								src="https://secure.gravatar.com/avatar/1cd30edf7c0caccee607be3524eee073?s=100&d=mm&r=g"
-								alt="..."
-							/>
-						</div>
-						<div className="col-md-8">
-							<div className="card-body">
-								<h5 className="text-left">Nombre puesto de trabajo</h5>
-								<p className="text-left">
-									Nombre empresa - Pais <a className="fecha">Fecha</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="card mb-3 mx-auto border border-primary rounded-lg " style={{ maxWidth: "540px" }}>
-					<div className="row no-gutters">
-						<div className="col-md-4 mt-1">
-							<img
-								src="https://secure.gravatar.com/avatar/1cd30edf7c0caccee607be3524eee073?s=100&d=mm&r=g"
-								alt="..."
-							/>
-						</div>
-						<div className="col-md-8">
-							<div className="card-body">
-								<h5 className="text-left">Nombre puesto de trabajo</h5>
-								<p className="text-left">
-									Nombre empresa - Pais <a className="fecha">Fecha</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="card mb-3 mx-auto border border-primary rounded-lg " style={{ maxWidth: "540px" }}>
-					<div className="row no-gutters">
-						<div className="col-md-4 mt-1">
-							<img
-								src="https://secure.gravatar.com/avatar/1cd30edf7c0caccee607be3524eee073?s=100&d=mm&r=g"
-								alt="..."
-							/>
-						</div>
-						<div className="col-md-8">
-							<div className="card-body">
-								<h5 className="text-left">Nombre puesto de trabajo</h5>
-								<p className="text-left">
-									Nombre empresa - Pais <a className="fecha">Fecha</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="card mb-3 mx-auto border border-primary rounded-lg " style={{ maxWidth: "540px" }}>
-					<div className="row no-gutters">
-						<div className="col-md-4 mt-1">
-							<img
-								src="https://secure.gravatar.com/avatar/1cd30edf7c0caccee607be3524eee073?s=100&d=mm&r=g"
-								alt="..."
-							/>
-						</div>
-						<div className="col-md-8">
-							<div className="card-body">
-								<h5 className="text-left">Nombre puesto de trabajo</h5>
-								<p className="text-left">
-									Nombre empresa - Pais <a className="fecha">Fecha</a>
-								</p>
-							</div>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	</div>
-);
+	);
+};

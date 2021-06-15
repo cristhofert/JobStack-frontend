@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 export const VerOfertas = () => {
 	const { store, actions } = useContext(Context);
 	const [mensaje, setMensaje] = useState("Cargando");
-	let ofertas = store.empresa.ofertas;
+	let ofertas = store.user.ofertas;
 	useEffect(() => {
-		actions.cargarOfertas();
-		ofertas = store.empresa.ofertas;
+		ofertas = store.user.ofertas;
 		if (ofertas.length == 0) {
 			setMensaje("Aún no se ha creado ninguna oferta");
 		}
@@ -23,7 +22,7 @@ export const VerOfertas = () => {
 				</Link>
 			</div>
 			<div className="listaOfertas m-3 shadow">
-				{store.empresa.ofertas[0] ? (
+				{store.user.ofertas[0] ? (
 					ofertas.map(oferta => {
 						return <Oferta key={oferta.id} oferta={oferta} />;
 					})
