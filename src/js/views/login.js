@@ -94,11 +94,7 @@ export const Login = () => {
 						<h2>Otros medios de ingreso</h2>
 					</div>
 					<GoogleLogin
-
-						clientId="1012985398043-k3re8g9vs1ahlk5nug7lvm3o0e2lnl6b.apps.googleusercontent.com"
-
 						clientId="1012985398043-c7gk8ki29jlcf11k9fmpq9jai7aljv7j.apps.googleusercontent.com"
-
 						onSuccess={responseGoogle}
 						onFailure={responseGoogle}
 						cookiePolicy={"single_host_origin"}
