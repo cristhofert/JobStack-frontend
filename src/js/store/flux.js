@@ -18,7 +18,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				estudios: [],
 				experiencias: [],
 				certificaciones: [],
-				idiomas: []
+				idiomas: [],
+				postulaciones: []
 			},
 			empresa: {
 				email: "",
@@ -59,6 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				*/
 			},
 			login: async (email, password) => {
+				const actions = getActions();
 				let url = `${process.env.API_REST}/login`;
 				let options = {
 					method: "POST",
@@ -73,10 +75,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await res.json();
 					sessionStorage.setItem("token", data.token);
 					setStore({ user: data.user });
-					if (data.user.comentarios) setStore({ tipoDeUsuario: "empresa" });
-					else setStore({ tipoDeUsuario: "profesional" });
+					if (data.user.comentarios) {
+						setStore({ tipoDeUsuario: "empresa" });
+						sessionStorage.setItem("tipo-usuario", "empresa");
+					} else {
+						setStore({ tipoDeUsuario: "profesional" });
+						sessionStorage.setItem("tipo-usuario", "profesional");
+					}
 				}
-
 				return res.ok;
 			},
 			logout: () => {
@@ -84,6 +90,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ tipoDeUsuario: "" });
 				sessionStorage.removeItem("token");
 			},
+			obtenerPostulaciones: async () => {
+				const store = getStore();
+				let options = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					}
+				};
+				const res = await fetch(`${process.env.API_REST}/perfil-profesional/postulaciones`, options);
+				const data = await res.json();
+				setStore({ profesional: { ...store.profesional, postulaciones: data } });
+				return data;
+			},
+
 			borrarDetalle: (id, tipo) => {
 				const store = getStore();
 				const detalleNuevo = [...store.profesional[tipo]];
@@ -354,8 +375,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => setStore({ resultados: result }))
 					.catch(error => console.log("error", error));
 			},
+			postularse: async idOferta => {
+				let bodyJSON = JSON.stringify({ idOferta: idOferta });
+
+				let options = {
+					method: "POST",
+					headers: { "Content-Type": "application/json", Authorization: sessionStorage.getItem("token") },
+					body: bodyJSON,
+					redirect: "follow"
+				};
+				try {
+					const response = await fetch(`${process.env.API_REST}/perfil-profesional/postulaciones`, options);
+					const result = await response.json();
+					return result;
+				} catch (error) {
+					return error.message;
+				}
+			},
+			postulado: async idOferta => {
+				const store = getStore();
+				const actions = getActions();
+				let i = 0;
+				let encontre = false;
+				await actions.obtenerPostulaciones;
+				while (!encontre && i < store.profesional.postulaciones) {
+					if (store.profesional.postulaciones[i].id == idOferta) {
+						encontre = true;
+					}
+					i++;
+				}
+				return encontre;
+			},
+			borrarPostulacion: async idOferta => {
+				let bodyJSON = JSON.stringify({ idOferta: idOferta });
+
+				let options = {
+					method: "PUT",
+					headers: { "Content-Type": "application/json", Authorization: sessionStorage.getItem("token") },
+					body: bodyJSON,
+					redirect: "follow"
+				};
+				try {
+					const response = await fetch(`${process.env.API_REST}/perfil-profesional/postulaciones`, options);
+					const result = await response.json();
+					return result;
+				} catch (error) {
+					return error.message;
+				}
+			},
 			obtenerOferta: id => {
-				console.log("obtener oferta");
 				var requestOptions = {
 					method: "GET",
 					redirect: "follow"
