@@ -79,6 +79,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				return res.ok;
 			},
+
+			loginGoogle: async email => {
+				let url = `${process.env.API_REST}/loginGoogle`;
+				let options = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: `{"email":"${email}"}`
+				};
+				const res = await fetch(url, options);
+				if (!res.ok) {
+					const message = `An error has occured: ${res.status}`;
+					console.log(message);
+				} else {
+					const data = await res.json();
+					sessionStorage.setItem("token", data.token);
+					setStore({ user: data.user });
+					if (data.user.comentarios) setStore({ tipoDeUsuario: "empresa" });
+					else setStore({ tipoDeUsuario: "profesional" });
+				}
+
+				return res.ok;
+			},
+
 			logout: () => {
 				setStore({ user: {} });
 				setStore({ tipoDeUsuario: "" });
