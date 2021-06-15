@@ -1,23 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import logo from "../../img/Logo_nuevo.png";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
+	const [link, setLink] = useState();
 
-	let mi_perfil =
-		store.tipoDeUsuario == "profesional"
-			? "/perfil-profesional"
-			: store.tipoDeUsuario == "empresa"
-				? "/empresa"
-				: "/logout";
-
+	useEffect(
+		() => {
+			let tipoUsuario = sessionStorage.getItem("tipo-usuario");
+			if (tipoUsuario === "profesional") {
+				setLink("/perfil-profesional");
+			} else if (tipoUsuario === "empresa") {
+				setLink("/empresa");
+			} else {
+				setLink("/logout");
+			}
+		},
+		[store.tipoDeUsuario]
+		//[] se ejecuta 1 vez cuando monta el componente
+		//[nombredependencia] se ejecuta 1 vez cuando monta el componente y cuando cambia la dependencia
+		// se ejecuta todo el tiempo "cuando haya un cambio de renderizado en el componente"
+	);
 	return (
 		<nav className="nav-footer-color py-3 navbar navbar-expand-sm navbar-light">
 			<div className="container">
 				<Link to="/">
-					<div className="rounded bg-dark text-center">
-						<span className="navbar-brand m-0 mx-3 h1 text-light">JobStack</span>
+					<div className="rounded text-center">
+						{/* <span className="navbar-brand m-0 mx-3 h1 text-light">JobStack</span> */}
+						<img src={logo} width="100" />
 					</div>
 				</Link>
 
@@ -40,19 +52,17 @@ export const Navbar = () => {
 						<li className="nav-item">
 							<a className="nav-link text-light disabled">Nosotros</a>
 						</li>
-						{mi_perfil == "/empresa" ? (
+						{link == "/empresa" ? (
 							<li className="nav-item">
 								<Link className="navbarLink nav-link text-light" to="/ofertas">
 									Ofertas
 								</Link>
 							</li>
-						) : (
-							""
-						)}
+						) : null}
 						{sessionStorage.getItem("token") ? (
 							<>
 								<li className="nav-item">
-									<Link className="navbarLink nav-link text-light" to={mi_perfil}>
+									<Link className="navbarLink nav-link text-light" to={link ? link : "/"}>
 										Mi Perfil
 									</Link>
 								</li>
