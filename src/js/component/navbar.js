@@ -50,7 +50,9 @@ export const Navbar = () => {
 							<a className="nav-link text-light disabled">Calificar</a>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link text-light disabled">Nosotros</a>
+							<Link className="nav-link text-light" to="/nosotros">
+								Nosotros
+							</Link>
 						</li>
 						{link == "/empresa" ? (
 							<li className="nav-item">
