@@ -19,17 +19,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencias: [],
 				certificaciones: [],
 				idiomas: [],
-<<<<<<< HEAD
 				apellido: "",
 				facebook: "",
 				github: "",
 				id: 0,
 				linkedin: "",
 				nombre: "",
-				twitter: ""
-=======
+				twitter: "",
 				postulaciones: []
->>>>>>> develop
 			},
 			empresa: {
 				email: "",

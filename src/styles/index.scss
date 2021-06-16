@@ -76,14 +76,27 @@ body{
 }
 
 .divredondo {
-   padding: 50px;
-   border-radius:50px;
-   background: #C6E3FF;
+   padding: 35px;
+   border-radius:25px;
+   background: white;
+   color: rgb(5, 38, 109);
    }
 
    .integrantes {
    padding: 20px;
    border-radius:10px;
-   background: #006CAE;
-   color: white;
+   background: white;
+   color: rgb(5, 38, 109);
+   justify-content: space-between;
+   }
+
+   .btn{
+       padding: 0%;
+   }
+
+   .fondo{       
+        background-image: url("../img/geometria-3d_3840x2160_xtrafondos.com.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(3px);
    }
