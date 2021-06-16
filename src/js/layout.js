@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
@@ -27,18 +27,39 @@ import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
 import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
-
+import "../styles/home.scss";
+import "../styles/index.scss";
 //create your first component
 const Layout = () => {
+	const [modoOscuro, setModoOscuro] = useState(false);
+	const ref = useRef(null);
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
 
+	useEffect(
+		() => {
+			/* console.log("modo oscuro: ", modoOscuro);
+            ref.current.className = `d-flex flex-column h-100 ${modoOscuro ? " modooscuro" : ""}"`; */
+			console.log(modoOscuro);
+			if (modoOscuro) {
+				// here's a good place to add a dark-mode css classes to our <body> and remove light mode
+				document.body.classList.add("modo-oscuro");
+				document.body.classList.remove("modo-claro");
+			} else {
+				// remove the dark mode classes, add light mode
+				document.body.classList.add("modo-claro");
+				document.body.classList.remove("modo-oscuro");
+			}
+		},
+		[modoOscuro]
+	);
+
 	return (
-		<div className="d-flex flex-column h-100">
+		<div className="d-flex flex-column h-100" ref={ref}>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar />
+					<Navbar setModoOscuro={setModoOscuro} modoOscuro={modoOscuro} />
 					<Switch>
 						<Route exact path="/">
 							<HomePage />
