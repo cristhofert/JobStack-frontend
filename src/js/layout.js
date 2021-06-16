@@ -10,6 +10,7 @@ import injectContext from "./store/appContext";
 import { CambiarContraseña } from "./views/cambiarContrasenna";
 import { RecuperarContraseña } from "./views/recuperarContraseña";
 import { CambiarPass } from "./views/cambiarPass";
+import { Nosotros } from "./views/nosotros";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -98,6 +99,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/cambiarPass/">
 							<CambiarPass />
+						</Route>
+						<Route exact path="/nosotros">
+							<Nosotros />
 						</Route>
 						<Route>
 							<h1>Error HTTP 404 No Encontrado!</h1>

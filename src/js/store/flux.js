@@ -20,7 +20,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencias: [],
 				certificaciones: [],
 				idiomas: [],
+<<<<<<< HEAD
+				apellido: "",
+				facebook: "",
+				github: "",
+				id: 0,
+				linkedin: "",
+				nombre: "",
+				twitter: ""
+=======
 				postulaciones: []
+>>>>>>> develop
 			},
 			empresa: {
 				email: "",
@@ -40,7 +50,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			user: {},
 			tipoDeUsuario: "",
-			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }]
+			resultados: [{ id: "1", fecha: "fecha", nombre: `nombre` }, { id: "2", fecha: "fecha", nombre: `nombre` }],
+			repos: [{ name: "Cargando...", description: "Cargando...", html_url: "" }]
 		},
 		actions: {
 			setEmpresa: empresa => {
@@ -86,6 +97,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return res.ok;
 			},
+
+			loginGoogle: async email => {
+				let url = `${process.env.API_REST}/loginGoogle`;
+				let options = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: `{"email":"${email}"}`
+				};
+				const res = await fetch(url, options);
+				if (!res.ok) {
+					const message = `An error has occured: ${res.status}`;
+					console.log(message);
+				} else {
+					const data = await res.json();
+					sessionStorage.setItem("token", data.token);
+					setStore({ user: data.user });
+					if (data.user.comentarios) setStore({ tipoDeUsuario: "empresa" });
+					else setStore({ tipoDeUsuario: "profesional" });
+				}
+
+				return res.ok;
+			},
+
 			logout: () => {
 				setStore({ user: {} });
 				setStore({ tipoDeUsuario: "" });
@@ -286,7 +320,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const res = await fetch(`${process.env.API_REST}/perfil-profesional`, options);
 					const data = await res.json();
+
 					setStore({ profesional: data });
+
+					//obtener repos de github
+					var requestOptions = {
+						method: "GET",
+						redirect: "follow"
+					};
+
+					fetch(`https://api.github.com/users/${data.github}/repos`, requestOptions)
+						.then(response => response.json())
+						.then(result => setStore({ repos: result }))
+						.catch(error => console.log("error", error));
 				}
 			},
 			editarEmpresa: () => {
