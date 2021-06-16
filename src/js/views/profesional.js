@@ -5,9 +5,10 @@ import { ProyectoProfesional } from "../component/proyectoProfesional";
 import { InfoProfesional } from "../component/infoProfesional";
 import { AgregarDetallesProf } from "../component/agregarDetallesProf";
 import { Context } from "../store/appContext";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
-export const profesional = () => {
+export const Profesional = () => {
+	const history = useHistory();
 	const params = useParams();
 	const { store, actions } = useContext(Context);
 	const [editar, setEditar] = useState(false);
@@ -16,17 +17,8 @@ export const profesional = () => {
 		actions.cargarProfesional(params.id);
 	}, []);
 
-	const editarPerfil = () => {
-		setEditar(!editar);
-		if (editar) {
-			actions.editarProfesional();
-			actions.cargarInfoDePerfil();
-		}
-	};
-
 	useEffect(() => {
 		if (!sessionStorage.getItem("token")) history.push("/login");
-		if (store.tipoDeUsuario == "empresa") history.push("/login");
 	}, []);
 
 	return (
@@ -147,171 +139,57 @@ export const profesional = () => {
 					</div>
 				</div>
 				<div className="row">
-					{!editar ? (
-						<>
-							<div className="col-sm">
-								<h4>Redes Sociales</h4>
-							</div>
-							<div className="col-sm">
-								<h3>
-									<i
-										className="fab fa-github"
-										onClick={() =>
-											store.profesional.github.length != 0
-												? window.open(
-														`https://github.com/${store.profesional.github}`,
-														"_blank"
-												  )
-												: ""
-										}
-									/>
-								</h3>
-							</div>
-							<div className="col-sm">
-								<h4>
-									<i
-										className="fab fa-linkedin"
-										onClick={() =>
-											store.profesional.linkedin.length != 0
-												? window.open(
-														`https://linkedin.com/in/${store.profesional.linkedin}`,
-														"_blank"
-												  )
-												: ""
-										}
-									/>
-								</h4>
-							</div>
-							<div className="col-sm">
-								<h3>
-									<i
-										className="fab fa-twitter"
-										onClick={() =>
-											store.profesional.twitter.length != 0
-												? window.open(
-														`https://twitter.com/${store.profesional.twitter}`,
-														"_blank"
-												  )
-												: ""
-										}
-									/>
-								</h3>
-							</div>
-							<div className="col-sm">
-								<h3>
-									<i
-										className="fab fa-facebook"
-										onClick={() =>
-											store.profesional.facebook.length != 0
-												? window.open(
-														`https://facebook.com/${store.profesional.facebook}`,
-														"_blank"
-												  )
-												: ""
-										}
-									/>
-								</h3>
-							</div>
-						</>
-					) : (
-						<div className="col-sm">
-							<h4 className="text-justify">Redes Sociales</h4>
-							<form>
-								<div className="form-group row">
-									{editar ? (
-										<div className="col-sm">
-											<div className="input-group mb-2">
-												<div className="input-group-prepend">
-													<div className="input-group-text">
-														<i className="fab fa-github" />
-													</div>
-												</div>
-												<input
-													id="github"
-													className="form-control"
-													placeholder="GitHub"
-													onChange={e => actions.setProfesional({ github: e.target.value })}
-													value={store.profesional.github}
-													required
-												/>
-											</div>
-										</div>
-									) : (
-										""
-									)}
-								</div>
-								<div className="form-group row">
-									{editar ? (
-										<div className="col-sm">
-											<div className="input-group mb-2">
-												<div className="input-group-prepend">
-													<div className="input-group-text">
-														<i className="fab fa-linkedin" />
-													</div>
-												</div>
-												<input
-													id="linkedin"
-													className="form-control"
-													placeholder="Linkedin"
-													onChange={e => actions.setProfesional({ linkedin: e.target.value })}
-													value={store.profesional.linkedin}
-													required
-												/>
-											</div>
-										</div>
-									) : (
-										""
-									)}
-								</div>
-								<div className="form-group row">
-									{editar ? (
-										<div className="col-sm">
-											<div className="input-group mb-2">
-												<div className="input-group-prepend">
-													<div className="input-group-text">
-														<i className="fab fa-twitter" />
-													</div>
-												</div>
-												<input
-													id="twitter"
-													className="form-control"
-													placeholder="Twitter"
-													onChange={e => actions.setProfesional({ twitter: e.target.value })}
-													value={store.profesional.twitter}
-													required
-												/>
-											</div>
-										</div>
-									) : (
-										""
-									)}
-								</div>
-								<div className="form-group row">
-									{editar ? (
-										<div className="col-sm">
-											<div className="input-group mb-2">
-												<div className="input-group-prepend">
-													<div className="input-group-text">
-														<i className="fab fa-facebook" />
-													</div>
-												</div>
-												<input
-													id="facebook"
-													className="form-control"
-													placeholder="Facebook"
-													onChange={e => actions.setProfesional({ facebook: e.target.value })}
-													value={store.profesional.facebook}
-													required
-												/>
-											</div>
-										</div>
-									) : (
-										""
-									)}
-								</div>
-							</form>
-						</div>
-					)}
+					<div className="col-sm">
+						<h4>Redes Sociales</h4>
+					</div>
+					<div className="col-sm">
+						<h3>
+							<i
+								className="fab fa-github"
+								onClick={() =>
+									store.profesional.github.length != 0
+										? window.open(`https://github.com/${store.profesional.github}`, "_blank")
+										: ""
+								}
+							/>
+						</h3>
+					</div>
+					<div className="col-sm">
+						<h4>
+							<i
+								className="fab fa-linkedin"
+								onClick={() =>
+									store.profesional.linkedin.length != 0
+										? window.open(`https://linkedin.com/in/${store.profesional.linkedin}`, "_blank")
+										: ""
+								}
+							/>
+						</h4>
+					</div>
+					<div className="col-sm">
+						<h3>
+							<i
+								className="fab fa-twitter"
+								onClick={() =>
+									store.profesional.twitter.length != 0
+										? window.open(`https://twitter.com/${store.profesional.twitter}`, "_blank")
+										: ""
+								}
+							/>
+						</h3>
+					</div>
+					<div className="col-sm">
+						<h3>
+							<i
+								className="fab fa-facebook"
+								onClick={() =>
+									store.profesional.facebook.length != 0
+										? window.open(`https://facebook.com/${store.profesional.facebook}`, "_blank")
+										: ""
+								}
+							/>
+						</h3>
+					</div>
 				</div>
 				<div className="row justify-content-center">
 					<div className="col p-3">
