@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 export const Postulante = props => {
 	return (
 		<div className="row m-2 p-2 rounded oferta align-items-center">
-			<div className="col-sm-9 col-md-6">{props.postulante.nombre}</div>
-			<Link className="boton btn mt-2 mx-2" to={"/"}>
-				Visitar Perfil <i className="fas fa-edit" />
-			</Link>
+			<div className="col-sm-9 col-md-10">
+				<h2 className="m-0">{props.postulante.nombre}</h2>
+			</div>
+			<div className="col-sm-3 col-md-2">
+				<Link className="boton btn m-2" to={`/profesional/${props.postulante.id}`}>
+					Visitar Perfil
+				</Link>
+			</div>
 		</div>
 	);
 };

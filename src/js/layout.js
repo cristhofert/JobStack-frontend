@@ -27,6 +27,7 @@ import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
 import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
 import { VerPostulantes } from "./views/verPostulantes";
+import { Profesional } from "./views/profesional";
 
 //create your first component
 const Layout = () => {
@@ -75,6 +76,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/perfil-profesional">
 							<PerfilProfesional />
+						</Route>
+						<Route exact path="/profesional/:id">
+							<Profesional />
 						</Route>
 						<Route exact path="/demo">
 							<Demo />

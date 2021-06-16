@@ -20,17 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencias: [],
 				certificaciones: [],
 				idiomas: [],
-<<<<<<< HEAD
-				apellido: "",
-				facebook: "",
-				github: "",
-				id: 0,
-				linkedin: "",
-				nombre: "",
-				twitter: ""
-=======
 				postulaciones: []
->>>>>>> develop
 			},
 			empresa: {
 				email: "",
@@ -334,6 +324,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 						.then(result => setStore({ repos: result }))
 						.catch(error => console.log("error", error));
 				}
+			},
+			cargarProfesional: async id => {
+				let options = {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionStorage.getItem("token")
+					}
+				};
+
+				const res = await fetch(`${process.env.API_REST}/profesional/${id}`, options);
+				const data = await res.json();
+				setStore({ profesional: data });
 			},
 			editarEmpresa: () => {
 				const store = getStore();
