@@ -20,7 +20,6 @@ export const Oferta = () => {
 	useEffect(() => {
 		actions.obtenerOferta(params.id);
 		setPostulado(actions.postulado(params.id));
-		console.log(postulado);
 	}, []);
 
 	return (

@@ -8,6 +8,8 @@ export const VerOfertas = () => {
 	const [mensaje, setMensaje] = useState("Cargando");
 	let ofertas = store.user.ofertas;
 	useEffect(() => {
+		console.log("amogus", store.user.ofertas);
+		actions.cargarOfertas();
 		ofertas = store.user.ofertas;
 		if (ofertas.length == 0) {
 			setMensaje("Aún no se ha creado ninguna oferta");

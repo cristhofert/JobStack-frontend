@@ -11,7 +11,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				habilidades: [],
 				condiciones: [],
 				responsabilidades: [],
-				cualificaciones: []
+				cualificaciones: [],
+				aplicantes: []
 			},
 			profesional: {
 				descripcion: "",
@@ -89,6 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ user: {} });
 				setStore({ tipoDeUsuario: "" });
 				sessionStorage.removeItem("token");
+				sessionStorage.removeItem("tipo-usuario");
 			},
 			obtenerPostulaciones: async () => {
 				const store = getStore();
@@ -196,8 +198,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const res = await fetch(url, options);
 				if (res.ok) {
 					const data = await res.json();
-					let nuevaEmpresa = { ...store.empresa, ofertas: data };
-					setStore({ empresa: nuevaEmpresa });
+					let nuevaEmpresa = { ...store.user, ofertas: data };
+					setStore({ user: nuevaEmpresa });
 				} else {
 					console.log(res.status);
 				}

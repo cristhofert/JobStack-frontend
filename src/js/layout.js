@@ -25,6 +25,7 @@ import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
 import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
+import { VerPostulantes } from "./views/verPostulantes";
 
 //create your first component
 const Layout = () => {
@@ -61,6 +62,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/ofertas">
 							<VerOfertas />
+						</Route>
+						<Route exact path="/postulantes/:idOferta">
+							<VerPostulantes />
 						</Route>
 						<Route exact path="/registro-empresa">
 							<RegistrarEmpresa />
