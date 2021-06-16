@@ -38,7 +38,6 @@ export const Navbar = props => {
 						<img src={logo} width="100" />
 					</div>
 				</Link>
-				<input type="checkbox" checked={props.modoOscuro} onChange={toggleCheckbox} />
 				<button
 					className="navbar-toggler"
 					type="button"
@@ -52,6 +51,23 @@ export const Navbar = props => {
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
+						<li className="nav-item">
+							<div className="form-check form-switch m-1">
+								<label className="form-check-label">
+									<i className="fas fa-moon" />
+								</label>
+								<label className="switch form-check-input">
+									<input
+										type="checkbox"
+										className=""
+										id="flexSwitchCheckDefault"
+										checked={props.modoOscuro}
+										onChange={toggleCheckbox}
+									/>
+									<span className="slider round" />
+								</label>
+							</div>
+						</li>
 						<li className="nav-item">
 							<a className="nav-link text-light disabled">Calificar</a>
 						</li>
@@ -116,5 +132,5 @@ export const Navbar = props => {
 
 Navbar.propTypes = {
 	setModoOscuro: PropTypes.func,
-	modoOscuro: PropTypes.string
+	modoOscuro: PropTypes.bool
 };

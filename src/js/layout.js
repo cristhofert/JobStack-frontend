@@ -37,14 +37,24 @@ const Layout = () => {
 
 	useEffect(
 		() => {
-			console.log("modo oscuro: ", modoOscuro);
-			ref.current.className = `d-flex flex-column h-100 ${modoOscuro ? " modooscuro" : ""}"`;
+			/* console.log("modo oscuro: ", modoOscuro);
+            ref.current.className = `d-flex flex-column h-100 ${modoOscuro ? " modooscuro" : ""}"`; */
+			console.log(modoOscuro);
+			if (modoOscuro) {
+				// here's a good place to add a dark-mode css classes to our <body> and remove light mode
+				document.body.classList.add("modo-oscuro");
+				document.body.classList.remove("modo-claro");
+			} else {
+				// remove the dark mode classes, add light mode
+				document.body.classList.add("modo-claro");
+				document.body.classList.remove("modo-oscuro");
+			}
 		},
 		[modoOscuro]
 	);
 
 	return (
-		<div className="d-flex flex-column h-100 modooscuro" ref={ref}>
+		<div className="d-flex flex-column h-100" ref={ref}>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar setModoOscuro={setModoOscuro} modoOscuro={modoOscuro} />
