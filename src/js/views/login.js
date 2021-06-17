@@ -22,13 +22,14 @@ export const Login = () => {
 	};
 
 	const responseGoogle = async responseG => {
-		const respuesta = await actions.loginGoogle(responseG.profileObj.email);
-		if (respuesta) {
-			history.push("/");
-		} else {
-			setError(true);
+		if (responseG.profileObj) {
+			const respuesta = await actions.loginGoogle(responseG.profileObj.email);
+			if (respuesta) {
+				history.push("/");
+			} else {
+				setError(true);
+			}
 		}
-		console.log(respuesta);
 	};
 	return (
 		<div className="container my-auto">

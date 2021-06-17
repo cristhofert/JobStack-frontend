@@ -5,13 +5,19 @@ import { Link } from "react-router-dom";
 export const Oferta = props => {
 	return (
 		<div className="row m-2 p-2 rounded oferta align-items-center">
-			<div className="col-sm-3 col-md-3">{props.oferta.fecha}</div>
-			<div className="col-sm-9 col-md-6">{props.oferta.nombre}</div>
+			<div className="col-sm-3 col-md-3">
+				<h2>{props.oferta.fecha}</h2>
+			</div>
+			<div className="col-sm-9 col-md-6">
+				<h2>{props.oferta.nombre}</h2>
+			</div>
 			<div className="col-sm-12 col-md-3 d-flex flex-column">
-				<Link className="boton btn mx-2">
+				<Link className="boton btn mx-2" to={props.oferta.id ? `/postulantes/${props.oferta.id}` : "error"}>
 					Postulantes <i className="fas fa-users" />
 				</Link>
-				<Link className="boton btn mt-2 mx-2" to={`/oferta/${props.oferta.id}/editar`}>
+				<Link
+					className="boton btn mt-2 mx-2"
+					to={`/oferta/${props.oferta.id ? props.oferta.id + "/editar" : "error"}`}>
 					Editar <i className="fas fa-edit" />
 				</Link>
 			</div>

@@ -1,21 +1,26 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-export const Ofertas = () => {
+export const Ofertas = props => {
 	return (
 		<div className="row m-2 p-2 rounded border">
 			<div className="col-sm-12 col-md-4 d-flex justify-content-center align-items-center">
-				<div className="fotoProyecto m-2" />
+				<h2>{props.oferta.fecha}</h2>
 			</div>
 			<div className="col-sm-12 col-md-7">
-				<h2>Nombre Proyecto</h2>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-					et dolore magna aliqua.
-				</p>
+				<h2>{props.oferta.nombre}</h2>
+				<p>{props.oferta.descripcion}</p>
 			</div>
 			<div className="col-sm-12 col-md-1 d-flex justify-content-center align-items-center">
-				<i className="mx-2 fab fa-2x fa-github" />
+				<Link className="boton btn mx-2" to={`/oferta/${props.oferta.id}`}>
+					Ver <i className="fas fa-plus" />
+				</Link>
 			</div>
 		</div>
 	);
+};
+
+Ofertas.propTypes = {
+	oferta: PropTypes.object
 };

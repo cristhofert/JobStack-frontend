@@ -51,11 +51,11 @@ export const Navbar = props => {
 
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
-						<li className="nav-item">
-							<div className="form-check form-switch m-1">
-								<label className="form-check-label">
-									<i className="fas fa-moon" />
-								</label>
+						<li className="nav-item d-flex align-items-center">
+							<label className="form-check-label">
+								<i className="fas fa-moon" />
+							</label>
+							<div className="form-check form-switch ml-4 mt-2 p-0 pl-1">
 								<label className="switch form-check-input">
 									<input
 										type="checkbox"
