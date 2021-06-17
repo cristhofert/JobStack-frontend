@@ -20,6 +20,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencias: [],
 				certificaciones: [],
 				idiomas: [],
+				apellido: "",
+				facebook: "",
+				github: "",
+				id: 0,
+				linkedin: "",
+				nombre: "",
+				twitter: "",
 				postulaciones: []
 			},
 			empresa: {
@@ -299,6 +306,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log("error", error));
 			},
 			cargarInfoDePerfil: async () => {
+				const actions = getActions();
 				if (sessionStorage.getItem("token")) {
 					let options = {
 						method: "GET",
@@ -313,19 +321,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					setStore({ profesional: data });
 
-					//obtener repos de github
-					var requestOptions = {
-						method: "GET",
-						redirect: "follow"
-					};
-
-					fetch(`https://api.github.com/users/${data.github}/repos`, requestOptions)
-						.then(response => response.json())
-						.then(result => setStore({ repos: result }))
-						.catch(error => console.log("error", error));
+					actions.cargarRepos(data.github);
 				}
 			},
+			cargarRepos: async github => {
+				//obtener repos de github
+				var requestOptions = {
+					method: "GET",
+					redirect: "follow"
+				};
+
+				fetch(`https://api.github.com/users/${github}/repos`, requestOptions)
+					.then(response => response.json())
+					.then(result => setStore({ repos: result }))
+					.catch(error => console.log("error", error));
+			},
+
 			cargarProfesional: async id => {
+				const actions = getActions();
 				let options = {
 					method: "GET",
 					headers: {
@@ -337,6 +350,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const res = await fetch(`${process.env.API_REST}/profesional/${id}`, options);
 				const data = await res.json();
 				setStore({ profesional: data });
+				actions.cargarRepos(data.github);
 			},
 			editarEmpresa: () => {
 				const store = getStore();
@@ -448,8 +462,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const actions = getActions();
 				let i = 0;
 				let encontre = false;
-				await actions.obtenerPostulaciones;
-				while (!encontre && i < store.profesional.postulaciones) {
+				await actions.obtenerPostulaciones();
+				while (!encontre && i < store.profesional.postulaciones.length) {
 					if (store.profesional.postulaciones[i].id == idOferta) {
 						encontre = true;
 					}

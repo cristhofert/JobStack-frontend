@@ -10,16 +10,16 @@ export const Oferta = () => {
 	const postularse = async () => {
 		if (postulado) {
 			actions.borrarPostulacion(params.id);
-			setPostulado(!postulado);
+			setPostulado(false);
 		} else {
 			actions.postularse(params.id);
-			setPostulado(!postulado);
+			setPostulado(true);
 		}
 	};
 
 	useEffect(() => {
 		actions.obtenerOferta(params.id);
-		setPostulado(actions.postulado(params.id));
+		actions.postulado(params.id).then(result => setPostulado(result));
 	}, []);
 
 	return (
@@ -33,7 +33,7 @@ export const Oferta = () => {
 								{store.oferta.presencialidad}
 							</h2>
 							<h2 className="text-white" id="subtitulo" />
-							<button type="submit" onClick={postularse} className="botonPostular btn mt-3">
+							<button onClick={postularse} className="botonPostular btn mt-3">
 								{postulado ? "Cancelar postulación" : "Postularse"}
 							</button>
 						</div>

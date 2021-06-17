@@ -7,6 +7,7 @@ export const Postulante = props => {
 		<div className="row m-2 p-2 rounded oferta align-items-center">
 			<div className="col-sm-9 col-md-10">
 				<h2 className="m-0">{props.postulante.nombre}</h2>
+				<h2 className="m-0">{props.postulante.apellido}</h2>
 			</div>
 			<div className="col-sm-3 col-md-2">
 				<Link className="boton btn m-2" to={`/profesional/${props.postulante.id}`}>

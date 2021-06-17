@@ -11,7 +11,6 @@ export const Profesional = () => {
 	const history = useHistory();
 	const params = useParams();
 	const { store, actions } = useContext(Context);
-	const [editar, setEditar] = useState(false);
 
 	useEffect(() => {
 		actions.cargarProfesional(params.id);
@@ -69,7 +68,7 @@ export const Profesional = () => {
 										<InfoProfesional
 											key={index}
 											index={index}
-											editar={editar}
+											editar={false}
 											descripcion={Educacion}
 											tipo={"estudios"}
 											profesional={true}
@@ -86,7 +85,7 @@ export const Profesional = () => {
 										<InfoProfesional
 											key={index}
 											index={index}
-											editar={editar}
+											editar={false}
 											descripcion={Experiencia}
 											tipo={"experiencias"}
 										/>
@@ -112,7 +111,7 @@ export const Profesional = () => {
 										<InfoProfesional
 											key={index}
 											index={index}
-											editar={editar}
+											editar={false}
 											descripcion={Certificacion}
 											tipo={"certificaciones"}
 										/>
@@ -128,7 +127,7 @@ export const Profesional = () => {
 										<InfoProfesional
 											key={index}
 											index={index}
-											editar={editar}
+											editar={false}
 											descripcion={Idioma}
 											tipo={"idiomas"}
 										/>
