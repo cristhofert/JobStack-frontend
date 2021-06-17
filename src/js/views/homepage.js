@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/home.scss";
-import DevImg from "../../img/DeveloperImage.png";
 import { useHistory } from "react-router-dom";
+import trabajando from "../../img/trabajando.jpeg";
 
 export const HomePage = () => {
 	let historial = useHistory();
@@ -39,6 +39,9 @@ export const HomePage = () => {
 						</div>
 					</form>
 				</div>
+			</div>
+			<div className="row mt-4">
+				<img className="w-100" src={trabajando} alt="trabajando" />
 			</div>
 		</div>
 	);

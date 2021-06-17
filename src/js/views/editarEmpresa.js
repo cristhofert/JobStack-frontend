@@ -347,9 +347,9 @@ export const EditarEmpresa = () => {
 					</div>
 					<div className="col-sm-11 col-md-10">
 						<div className="listaProyectos">
-							<Ofertas />
-							<Ofertas />
-							<Ofertas />
+							{store.user.ofertas.map(oferta => {
+								return <Ofertas key={oferta.id} oferta={oferta} />;
+							})}
 						</div>
 					</div>
 				</div>
