@@ -11,6 +11,7 @@ import { CambiarContraseña } from "./views/cambiarContrasenna";
 import { RecuperarContraseña } from "./views/recuperarContraseña";
 import { CambiarPass } from "./views/cambiarPass";
 import { Nosotros } from "./views/nosotros";
+import { Calificar } from "./views/calificar";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -119,6 +120,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/nosotros">
 							<Nosotros />
+						</Route>
+						<Route exact path="/calificar">
+							<Calificar />
 						</Route>
 						<Route>
 							<h1>Error HTTP 404 No Encontrado!</h1>
