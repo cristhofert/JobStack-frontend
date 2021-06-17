@@ -3,6 +3,90 @@
 */
 
 .modo-claro {
+     #homepage{
+       background-image: url("../img/Diseño sin título.png");
+       background-size: cover;
+   }
+
+   .parrafoHome{
+       font-size: 90px;
+   }
+
+   .modo-claro p {
+    font-size: 20px;
+    }
+
+    .jumbotron{
+        background: transparent;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    #margenHome{
+        margin-top: 70px;
+    }
+
+    #t1{
+        color: rgb(2, 48, 107);
+    }
+
+    #headerHome{
+        color: rgb(5, 30, 63);
+        text-shadow: 2px 2px 15px white;
+    }
+
+    .card {
+    position: relative;
+    min-width: 300px;
+    height: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    transition: .5s;
+    }
+
+    .card:hover {
+    transform:scale(1.1);
+    }
+
+    .card_red, .card_red .title .fa {
+    background: linear-gradient(-45deg, white, #006CAE,);
+    }
+
+    .card:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: rgba(255, 255, 255, .1);
+    z-index: 1;
+    transform: skewY(-5deg) scale(1.5);
+    }
+
+    .title h2 {
+    position: relative;
+    margin: 20px 0 0;
+    padding: 0;
+    /* color: #fff; */
+    font-size: 28px;
+    z-index: 2;
+    }
+
+    .price {
+    position: relative;
+    z-index: 2;
+    }
+    
+    .price h4 {
+    margin: 0;
+    padding: 20px 0;
+    color: #006CAE;
+    font-size: 20px;
+    }
+
 
     .div-derecha{
     border-left: none;
@@ -313,6 +397,26 @@
     .slider.round:before {
     border-radius: 50%;
     }
+    .divredondo {
+   padding: 35px;
+   border-radius:25px;
+   background: white;
+   color: rgb(5, 38, 109);
+   }
+
+   .integrantes {
+   padding: 20px;
+   border-radius:10px;
+   background: white;
+   color: rgb(5, 38, 109);
+   justify-content: space-between;
+   }
+
+   .fondo{       
+        background-image: url("../img/Diseño sin título (1).png");
+        background-size: cover;
+        background-repeat: no-repeat;
+   }
 }
 
 .modo-oscuro {
@@ -436,8 +540,8 @@
     }
 
     .boton{
-        background-color: #4D0095;
-        border-color: #4D0095;
+        background-color: #023E8A;
+        border-color: #023E8A;
         color: white;
     }
 
@@ -458,20 +562,21 @@
     }
 
     .div-derecha{
-    border-left: none;
+        border-left: none;
     }
 
     @media screen and (min-width: 768px) {
-    .div-derecha {
-        border-left: 2px solid #4D0095;
-    }
+        .div-derecha {
+            border-left: 2px solid #4D0095;
+        }
     }
 
     .perfilProfesionalFondo{
         width: 100%;
         background-repeat: no-repeat;
-
         backdrop-filter: blur(3px);
+        background-attachment: fixed;
+        background-size: cover;
    }
 
     .ec-stars-wrapper {
@@ -483,7 +588,6 @@
         display: inline-block;
         font-size: 32px;
         font-size: 2rem;
-        
         color: #888;
     }
 
@@ -496,10 +600,6 @@
 
     #exampleTextarea1{
         height: 150px;
-    }
-
-        background-attachment: fixed;
-        background-size: cover;
     }
 
     .FotoPerfilProfesional{
@@ -527,7 +627,7 @@
 
     .perfil{
         margin-top: 200px;
-        background-color: white;
+        background-color: #023E8A;
         border-radius: 16px;
     }
 
@@ -657,6 +757,26 @@
     .slider.round:before {
     border-radius: 50%;
     }
+    .divredondo {
+   padding: 35px;
+   border-radius:25px;
+   background: white;
+   color: rgb(5, 38, 109);
+   }
+
+   .integrantes {
+   padding: 20px;
+   border-radius:10px;
+   background: white;
+   color: rgb(5, 38, 109);
+   justify-content: space-between;
+   }
+
+   .fondo{       
+        background-image: url("../img/Diseño sin título (1).png");
+        background-size: cover;
+        background-repeat: no-repeat;
+   }
 
    #homepage{
        background-image: url("../img/Diseño sin título.png");
@@ -741,3 +861,4 @@
     color: #006CAE;
     font-size: 20px;
     }
+}

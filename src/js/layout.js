@@ -27,6 +27,9 @@ import { VerOfertas } from "./views/verOfertas";
 import { Buscador } from "./views/buscador";
 import { Logout } from "./views/logout";
 import { CambiarPassRecuperacion } from "./views/cambiarPassRecuperacion";
+import { VerPostulantes } from "./views/verPostulantes";
+import { Profesional } from "./views/profesional";
+
 import "../styles/home.scss";
 import "../styles/index.scss";
 //create your first component
@@ -85,6 +88,9 @@ const Layout = () => {
 						<Route exact path="/ofertas">
 							<VerOfertas />
 						</Route>
+						<Route exact path="/postulantes/:idOferta">
+							<VerPostulantes />
+						</Route>
 						<Route exact path="/registro-empresa">
 							<RegistrarEmpresa />
 						</Route>
@@ -93,6 +99,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/perfil-profesional">
 							<PerfilProfesional />
+						</Route>
+						<Route exact path="/profesional/:id">
+							<Profesional />
 						</Route>
 						<Route exact path="/demo">
 							<Demo />

@@ -29,12 +29,9 @@ export const RegistroProfesional = () => {
 		}
 	};
 
-	const responseGoogle = respuesta => {
-		console.log(respuesta);
-	};
 	return (
 		<div className="container my-auto">
-			<div className="row">
+			<div className="row justify-content-center">
 				<div className="col-sm-12 col-md-6">
 					<h1>Crear una cuenta</h1>
 					{alert != "" ? (
@@ -79,17 +76,6 @@ export const RegistroProfesional = () => {
 							</button>
 						</div>
 					</form>
-				</div>
-				<div className="col-sm-12 col-md-6 div-derecha">
-					<div className="mt-3 d-flex justify-content-center align-items-center">
-						<h2>Otros medios de registro</h2>
-					</div>
-					<GoogleLogin
-						clientId="1012985398043-gai3nn9i7h16i49easo40lpvcumeqg2c.apps.googleusercontent.com"
-						onSuccess={responseGoogle}
-						onFailure={responseGoogle}
-						cookiePolicy={"single_host_origin"}
-					/>
 				</div>
 			</div>
 		</div>
